@@ -1,0 +1,13 @@
+Latest Version:
+-----------------------------------------------------------------------
+$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$ 
+$WCDATE=%Y-%b-%d %I:%M:%S%p$
+
+
+Change Log:
+-----------------------------------------------------------------------
+2016 June 16 - LOMelick
+             - moved to GitHub
+
+2015 March 23 - LOMelick
+              - Created SVN Repository
