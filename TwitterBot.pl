@@ -9,16 +9,22 @@
 #
 # usage: /usr/bin/perl /TwitterBot.pl [-v] -t "Hello World!"
 
-
 use strict;
 use warnings;
 
+my $which_db = 'db_handle';
 
+# ----- database handle
+use Melick::dbLib qw(connection ckObject );
+my $dbh = &connection($which_db);
+#printf "dbh: [%s]\n", $dbh;
+
+# ----- handle the options passed
 use Getopt::Long;
 my $tweet = "";
 my $verbose;
 GetOptions ("tweet=s" => \$tweet,    # string
-            "verbose"    => \$verbose)     # flag
+            "verbose" => \$verbose)  # flag
 or die("Error in command line arguments\n");
 
 # ----- http://perltricks.com/article/154/2015/2/23/Build-a-Twitter-bot-with-Perl/

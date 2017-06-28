@@ -13,6 +13,14 @@ my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDat
 use warnings;
 use strict;
 
+my $which_db = 'db_handle';
+
+# ----- database handle
+use Melick::dbLib qw(connection ckObject );
+my $dbh = &connection($which_db);
+#printf "dbh: [%s]\n", $dbh;
+
+
 #use lib '/home/melick/perl5/lib/perl5';
 use Math::Random::Secure qw(rand);
 use Roman;
