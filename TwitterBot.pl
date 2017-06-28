@@ -23,6 +23,8 @@ my $dbh = &connection($which_db);
 # ----- handle the options passed
 use Getopt::Long;
 my $tweet = "";
+my $url = "";
+my $hashtag = "";
 my $verbose;
 GetOptions ("tweet=s" => \$tweet,    # string
             "verbose" => \$verbose)  # flag
@@ -33,7 +35,7 @@ use Net::Twitter::Lite::WithAPIv1_1;
 use Try::Tiny;
 
 
-tweet($tweet);
+tweet($tweet, $url, $hashtag);
 
 
 # ----- https://perlmaven.com/sending-tweets-from-a-perl-script
