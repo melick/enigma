@@ -30,6 +30,7 @@ use Crypt::Rijndael;
 
 my %PasswordStore = (
     # ----- the meat goes here
+    'LyleMelick' => '0c74a8888f27d2c2c1fc8edfa9f14f512946b2bcdee3de9ba9fe9b27fae3eaba:52616fde04d1e389d8e3c52cfb6836b5b90b046b:20681834b922da4760f3d67a:7bca6c8d2c6492efff3f0bb3dfbdaa9c:f0ceabe6',
 );
 my ($key, $aad, $iv, $tag, $ciphertext) = split(/\:/, $PasswordStore{$username});
 
