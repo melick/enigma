@@ -23,8 +23,8 @@ my $dbh = &connection($which_db);
 # ----- handle the options passed
 use Getopt::Long;
 my $tweet = "";
-my $url = "";
-my $hashtag = "";
+my $url = "https://melick.wordpress.com/";
+my $hashtag = "#enigma";
 my $verbose;
 GetOptions ("tweet=s" => \$tweet,    # string
             "verbose" => \$verbose)  # flag
