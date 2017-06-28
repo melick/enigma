@@ -4,11 +4,11 @@
 #       Lyle Melick - LMelick@SSandG.com - SS&G Healthcare Services LLC
 #       Last Update - 2014 October 21 - Created
 #
-# $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$ 
+# $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$
 # $WCDATE=%Y-%b-%d %I:%M:%S%p$
 #
-# usage: /usr/bin/perl /home/lmelick/CryptKeeper/encypher.pl -u <username> -p <password>
-# example: /usr/bin/perl /home/lmelick/CryptKeeper/encypher.pl -v -p "0penS3zMe$@!" -u BigFatWhiteGuy
+# usage: /usr/bin/perl /home/melick/enigma/encypher.pl -u <username> -p <password>
+# example: /usr/bin/perl /home/melick/enigma/encypher.pl -v -p "0penS3zMe$@!" -u BigFatWhiteGuy
 
 
 use strict;
@@ -44,8 +44,8 @@ $message =~ s/(.)/sprintf("%x",ord($1))/eg;
 # ----- encryption parameters
 printf "thinking...\n";
 my $key = random_bytes_hex(32); # 256 bit;
-my $aad = random_bytes_hex(20); # 160 bit; 
-my $iv = random_bytes_hex(12);  # 96 bit - for compatibility & efficiency;  
+my $aad = random_bytes_hex(20); # 160 bit;
+my $iv = random_bytes_hex(12);  # 96 bit - for compatibility & efficiency;
 printf "done.\n";
 # ----- output of encryption pass.
 my $tag = '';
@@ -64,7 +64,7 @@ $tag = unpack 'H*', $gcm->tag();
 
 
 # ----- print out all this lovely stuff
-my $sec_blob = join(':', $key, $aad, $iv, $tag, $ciphertext); 
+my $sec_blob = join(':', $key, $aad, $iv, $tag, $ciphertext);
 #print "my %PasswordStore = (\n";
 printf "    '%s' => '%s',\n", $username, $sec_blob;
 #print ");\n";

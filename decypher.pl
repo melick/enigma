@@ -4,11 +4,11 @@
 #       Lyle Melick - LMelick@SSandG.com - SS&G Healthcare Services LLC
 #       Last Update - 2014 October 21 - Created
 #
-# $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$ 
+# $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$
 # $WCDATE=%Y-%b-%d %I:%M:%S%p$
 #
-# usage: /usr/bin/perl /home/lmelick/CryptKeeper/decypher.pl -U <username>
-# example: /usr/bin/perl /home/lmelick/CryptKeeper/decypher.pl -U BigFatWhiteGuy
+# usage: /usr/bin/perl /home/melick/enigma/decypher.pl -U <username>
+# example: /usr/bin/perl /home/melick/enigma/decypher.pl -U BigFatWhiteGuy
 # ----- assumes there's already an entry in the PasswordStore for the user.
 
 
