@@ -15,6 +15,7 @@ use warnings;
 my $which_db = 'Enigma';
 
 # ----- database handle
+use lib '/home/melick/perl5/lib/perl5/Melick';
 use Melick::dbLib qw(connection ckObject );
 my $dbh = &connection($which_db);
 #printf "dbh: [%s]\n", $dbh;
