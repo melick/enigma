@@ -7,7 +7,7 @@
 # $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$
 # $WCDATE=%Y-%b-%d %I:%M:%S%p$
 #
-# usage: /usr/bin/perl /TwitterBot.pl [-v] -t "Hello World!"
+# usage: /usr/bin/perl /home/melick/enigma/TwitterBot.pl [-v] -t "Hello World!"
 
 use strict;
 use warnings;
@@ -15,7 +15,7 @@ use warnings;
 my $which_db = 'Enigma';
 
 # ----- database handle
-use lib '/home/melick/perl5/lib/perl5/Melick';
+use lib '/home/melick/perl5/lib/perl5';
 use Melick::dbLib qw(connection ckObject );
 my $dbh = &connection($which_db);
 #printf "dbh: [%s]\n", $dbh;
