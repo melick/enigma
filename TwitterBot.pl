@@ -7,7 +7,7 @@
 # $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$
 # $WCDATE=%Y-%b-%d %I:%M:%S%p$
 #
-# usage: /usr/bin/perl /home/melick/enigma/TwitterBot.pl [-v] -t "Hello World!"
+# usage: /usr/bin/perl /home/melick/enigma/TwitterBot.pl -v -t "Hello World!"
 
 use strict;
 use warnings;
@@ -54,13 +54,13 @@ sub tweet {
 
     # ----- http://perltricks.com/article/29/2013/9/17/How-to-Load-YAML-Config-Files/
     use YAML::XS 'LoadFile';
-    my $config = LoadFile('config.yaml');
-    my $access_token_secret = $config->{access_token_secret};
-    my $consumer_secret     = $config->{consumer_secret};
-    my $access_token        = $config->{access_token};
-    my $consumer_key        = $config->{consumer_key};
-    my $user_agent          = $config->{user_agent};
-    my $ssl                 = $config->{ssl};
+    our $config = LoadFile('config.yaml');
+    our $access_token_secret = $config->{access_token_secret};
+    our $consumer_secret     = $config->{consumer_secret};
+    our $access_token        = $config->{access_token};
+    our $consumer_key        = $config->{consumer_key};
+    our $user_agent          = $config->{user_agent};
+    our $ssl                 = $config->{ssl};
 
     # ----- check the vars
     unless ($consumer_key && $consumer_secret && $access_token && $access_token_secret) {
@@ -75,7 +75,7 @@ sub tweet {
         $tweet = "$text $url $hashtag";
     } elsif (length($text) < 118) {
       $tweet = "$text $url";
-    } else # shorten text, drop the hashtag {
+    } else { # shorten text, drop the hashtag {
       $tweet = substr($text, 0, 113) . "... " . $url;
     }
 
