@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-my $which_db = 'db_handle';
+my $which_db = 'Enigma';
 
 # ----- database handle
 use Melick::dbLib qw(connection ckObject );
