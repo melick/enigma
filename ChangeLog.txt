@@ -6,6 +6,13 @@ $WCDATE=%Y-%b-%d %I:%M:%S%p$
 
 Change Log:
 -----------------------------------------------------------------------
+2017 July 07 - LOMelick
+             - set up on Destiny, cleaned up some of the backend/build structure
+               updated README.md
+
+2017 June 28 - LOMelick
+             - Added TwitterBot.pl to post messages to twitter account
+
 2016 June 16 - LOMelick
              - moved to GitHub
 
