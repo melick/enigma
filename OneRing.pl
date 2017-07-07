@@ -8,7 +8,7 @@ my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDat
 #
 # http://enigma.louisedade.co.uk/enigma.html?m3;b;b245;ABUL;ABLA;AV-BS-CG-DL-FU-HZ-IN-KM-OW-RX
 #
-# usage: C:\Strawberry\perl\bin\perl.exe C:\Users\lmelick\workspace\Enigma\OneRing.pl [--Tag XX] [--verbose] [--debug]
+# usage: C:\Strawberry\perl\bin\perl.exe C:\Users\melick\workspace\Enigma\OneRing.pl [--Tag XX] [--verbose] [--debug]
 
 
 use warnings;
