@@ -134,7 +134,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @Walzenlage = @Rotors[ @pick_indexes ];
-    printf 'Walzenlage ' . @walzenlage if $debug;
+    printf 'Walzenlage ' . @Walzenlage if $debug;
 
 
     # ----------------------------------------------------------------------
