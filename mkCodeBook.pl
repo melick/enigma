@@ -25,7 +25,7 @@ GetOptions ("debug"   => \$debug,     # flag
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
 
-use Bytes::Random::Secure;
+use Bytes::Random::Secure qw(random_string_from);
 use Roman;
 use List::Util qw/shuffle/;
 use Date::Calc qw(:all);
