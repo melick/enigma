@@ -80,8 +80,7 @@ my @letters = 'A' .. 'Z';
 
 # ----- get todays date and the number of days in this month
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-my ($year,$month,$day, $hour,$min,$sec, $doy,$dow,$dst) = Localtime();
-my $num_days = Days_in_Month($year,$month);
+my $num_days = Days_in_Month($TodaysDate->y,$TodaysDate->m);
 
 
 # ----------------------------------------------------------------------
@@ -108,7 +107,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # date
     # ----------------------------------------------------------------------
-    my $date = $year . '-' . $month . '-' . $day;
+    my $date = $TodaysDate->y . '-' . $TodaysDate->m . '-' . $day;
     printf "date:%s\n", $date if $debug;
 
     # ----------------------------------------------------------------------
