@@ -45,7 +45,7 @@ if ($StartDate eq '') {
 }
 printf "my StartDate is: %s.\n", $StartDate;
 my ($year, $month, $day_of_month) = split('-', $StartDate);
-printf "y:%s, m:%s, d:%s.\n", $year, $month, $day if $debug;
+printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
 # ----- get todays date and the number of days in this month
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 my $num_days = Days_in_Month($year,$month);
