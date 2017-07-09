@@ -15,6 +15,13 @@ my $which_db = 'Enigma';
 use warnings;
 use strict;
 
+use Bytes::Random::Secure qw(random_string_from);
+use Roman;
+use List::Util qw/shuffle/;
+use Date::Calc qw(:all);
+use Text::Banner;
+
+
 # ----- input parameters
 use Getopt::Long;
 my $StartDate = '';
@@ -25,31 +32,21 @@ GetOptions ("debug"   => \$debug,     # flag
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
 
-use Bytes::Random::Secure qw(random_string_from);
-use Roman;
-use List::Util qw/shuffle/;
-use Date::Calc qw(:all);
-use Text::Banner;
+
+# ----- handle the date variable
+printf "my StartDate is: %s.\n", $StartDate;
+my ($year, $month, $day_of_month) = split('-', $StartDate);
+printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
+my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+my $num_days = Days_in_Month($year,$month);
+printf "numdays:%s.\n", $num_days if $debug;
+
 
 # ----- database handle
 use lib '/home/melick/perl5/lib/perl5';
 use Melick::dbLib qw(connection ckObject );
 my $dbh = &connection($which_db);
 #printf "dbh: [%s]\n", $dbh;
-
-# ----- if StartDate and EndDate were not passed, set them to the default of Sunday/Saturday of current week.
-if ($StartDate eq '') {
-    $StartDate = DateTime->today()
-        ->truncate( to => 'week' )
-        ->subtract( days => 1 )->ymd;
-}
-printf "my StartDate is: %s.\n", $StartDate;
-my ($year, $month, $day_of_month) = split('-', $StartDate);
-printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
-# ----- get todays date and the number of days in this month
-my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-my $num_days = Days_in_Month($year,$month);
-printf "numdays:%s.\n", $num_days if $debug;
 
 
 # ----- basic info
@@ -217,7 +214,6 @@ for (my $day=$num_days; $day >= 1; $day--) {
 =end GHOSTCODE
 =cut
 
-close(OUTPUT);
 $dbh->close;
 
 
