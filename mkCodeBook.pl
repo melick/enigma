@@ -165,7 +165,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # pick plug combinations
     my @Plugs;
     for (my $p=0; $p < 26; $p++) {
-        push @Plugs, @letters[$p];
+        push @Plugs, $letters[$p];
     }
 
     # Shuffled list of indexes into @deck
@@ -240,7 +240,6 @@ for (my $day=$num_days; $day >= 1; $day--) {
 =cut
 
 close(OUTPUT);
-close(PERL);
 $dbh->close;
 
 
