@@ -53,10 +53,7 @@ use DateTime;
 my $TodaysDate = DateTime->now;
 my $Now = join(' ', $TodaysDate->ymd, $TodaysDate->hms);
 printf "[%s] [%s : %s]\n", $Now, $TodaysDate->ymd, $TodaysDate->hms if $verbose;
-
 my $julian_day = $TodaysDate->day_of_year();
-my $month = $TodaysDate->month(); my $day = $TodaysDate->day(); my $year = $TodaysDate->year(); my $weekday = $TodaysDate->day_name();
-printf "j:%s, m:%s, d:%s, y:%s, w:%s\n", $julian_day, $month,$day,$year,$weekday if $verbose;
 
 # ----- if StartDate and EndDate were not passed, set them to the default of Sunday/Saturday of current week.
 if ($StartDate eq '') {
@@ -78,7 +75,6 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 
 
 # ----- set up list if letters for number to letter conversion
-my @letters = 'A' .. 'Z';
 my @letters = 'A' .. 'Z';
 
 
@@ -116,9 +112,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
 
     # ----------------------------------------------------------------------
-    # pick random reflector
+    # pick random reflector - app has B, C, B (Thin) and C (thin).  I'm only doing B & C
     # ----------------------------------------------------------------------
-    my $Umkehrwalze = random_string_from('BCD',1);
+    my $Umkehrwalze = random_string_from('BC',1);
 
 
     # ----------------------------------------------------------------------
