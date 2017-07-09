@@ -140,9 +140,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Ringstellung;
     if ($num_rotors == 3) {
-        $Ringstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
+        $Ringstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
     } else {
-        $Ringstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
+        $Ringstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
     }
 
 
@@ -151,9 +151,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Grundstellung;
     if ($num_rotors == 3) {
-        $Grundstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
+        $Grundstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
     } else {
-        $Grundstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
+        $Grundstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
     }
 
 
@@ -165,7 +165,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # pick plug combinations
     my @Plugs;
     for (my $p=0; $p < 26; $p++) {
-        push @Plugs, $letters[$p];
+        push @Plugs, @letters[$p];
     }
 
     # Shuffled list of indexes into @deck
@@ -185,14 +185,14 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # Kenngruppen
     # ----------------------------------------------------------------------
-    my $Kenngruppen = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
+    my $Kenngruppen = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
 
 
     # ----------------------------------------------------------------------
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
     # ----------------------------------------------------------------------
     my $return_value = 0;
-    my $query = "SET @key = UNHEX(SHA2('" . $network . "',512));
+    my $query = "SET \@key = UNHEX(SHA2('" . $network . "',512));
     INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
         AES_ENCRYPT(" . $network . ",\@key),
         '" . $date . "',
