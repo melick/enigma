@@ -116,7 +116,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @Walzenlage = @Rotors[ @pick_indexes ];
-    printf 'Walzenlage ' . @Walzenlage if $debug;
+    printf "Walzenlage:\n" if $debug;
+    foreach my $n (@Walzenlage) {
+      say $n;
+    } if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -165,7 +168,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
         push @negnudnibrevrekcetS, '.';
     }
     my @Steckerverbindungen = reverse @negnudnibrevrekcetS;
-    printf 'Steckerverbindungen: ' . @Steckerverbindungen if $debug;
+    printf "Steckerverbindungen:\n" if $debug;
+    foreach my $n (@Steckerverbindungen) {
+      say $n;
+    } if $debug;
 
 
     # ----------------------------------------------------------------------
