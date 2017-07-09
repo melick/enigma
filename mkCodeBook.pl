@@ -44,7 +44,7 @@ if ($StartDate eq '') {
         ->subtract( days => 1 )->ymd;
 }
 printf "my StartDate is: %s.\n", $StartDate;
-my ($year, $month, $day) = split('-', $StartDate);
+my ($year, $month, $day_of_month) = split('-', $StartDate);
 printf "y:%s, m:%s, d:%s.\n", $year, $month, $day if $debug;
 # ----- get todays date and the number of days in this month
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
@@ -78,7 +78,7 @@ $a->size(1);
 $a->fill('*');
 $a->rotate('h');
 print $a->get;
-printf "        %04d %s\n\n", $TodaysDate->year, $months[$TodaysDate->month];
+printf "        %04d %s\n\n", $year, $months[$month];
 printf "-----------+---+---------------------+-----+-----+-------------------------------------+----------------\n";
 printf "    Day    |UKW|     Walzenlage      |Ring |Grund| Steckerverbindungen                 | Kenngruppen    \n";
 printf "-----------+---+---------------------+-----+-----+-------------------------------------+----------------\n";
@@ -92,7 +92,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # date
     # ----------------------------------------------------------------------
-    my $date = $TodaysDate->year . '-' . $TodaysDate->month . '-' . $day;
+    my $date = $year . '-' . $month . '-' . $day;
     printf "date:%s\n", $date if $debug;
 
     # ----------------------------------------------------------------------
