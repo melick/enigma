@@ -119,7 +119,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     printf "Walzenlage:\n" if $debug;
     foreach my $n (@Walzenlage) {
       say $n;
-    } if $debug;
+    }
 
 
     # ----------------------------------------------------------------------
@@ -171,7 +171,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     printf "Steckerverbindungen:\n" if $debug;
     foreach my $n (@Steckerverbindungen) {
       say $n;
-    } if $debug;
+    };
 
 
     # ----------------------------------------------------------------------
