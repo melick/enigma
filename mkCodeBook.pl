@@ -199,10 +199,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
             AES_ENCRYPT('" . $Walzenlage[3] . "',key),
             AES_ENCRYPT('" . $Ringstellung . "',key),
             AES_ENCRYPT('" . $Grundstellung . "',key),
-            AES_ENCRYPT('" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . "',key),
             AES_ENCRYPT('" . $Kenngruppen . "',key),
             AES_ENCRYPT('" . $Revision . "',key),
             NOW())";
+#            AES_ENCRYPT('" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . "',key),
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
 =begin GHOSTCODE
