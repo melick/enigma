@@ -140,9 +140,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Ringstellung;
     if ($num_rotors == 3) {
-        $Ringstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
+        $Ringstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     } else {
-        $Ringstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
+        $Ringstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
 
 
@@ -151,9 +151,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Grundstellung;
     if ($num_rotors == 3) {
-        $Grundstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
+        $Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     } else {
-        $Grundstellung = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
+        $Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
 
 
@@ -185,7 +185,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # Kenngruppen
     # ----------------------------------------------------------------------
-    my $Kenngruppen = random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1) . ' ' . random_string_from(@letters,1) . random_string_from(@letters,1) . random_string_from(@letters,1);
+    my $Kenngruppen = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
 
 
     # ----------------------------------------------------------------------
