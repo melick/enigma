@@ -8,7 +8,7 @@
 my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
 #
-# usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -s '2014-09-01' -e '2014-09-30'
+# usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -s '2014-09-01' [-d] [-v]
 
 my $which_db = 'Enigma';
 
@@ -18,12 +18,10 @@ use strict;
 # ----- input parameters
 use Getopt::Long;
 my $StartDate = '';
-my $EndDate = '';
 my $verbose;
 my $debug;
-GetOptions ("start=s" => \$StartDate, # string
-            "debug"   => \$debug),    # flag
-            "end=s"   => \$EndDate,   # string
+GetOptions ("debug"   => \$debug,     # flag
+            "start=s" => \$StartDate, # string
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
 
@@ -66,12 +64,7 @@ if ($StartDate eq '') {
         ->truncate( to => 'week' )
         ->subtract( days => 1 )->ymd;
 }
-if ($EndDate eq '') {
-    $EndDate = DateTime->today()
-        ->truncate( to => 'week' )
-        ->add( days => 5 )->ymd;
-}
-printf "[%s] my StartDate is: %s, my EndDate is: %s.\n", DateTime->today()->truncate( to => 'week' )->ymd, $StartDate, $EndDate;
+printf "[%s] my StartDate is: %s.\n", DateTime->today()->truncate( to => 'week' )->ymd, $StartDate;
 
 # ----- basic info
 my $network = 'Red Stallion';
