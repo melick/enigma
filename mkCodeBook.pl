@@ -118,7 +118,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @Walzenlage = @Rotors[ @pick_indexes ];
     printf "Walzenlage:\n";
     foreach my $n (@Walzenlage) {
-      say $n;
+      printf " - %s\n", $n;
     }
 
 
@@ -170,7 +170,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @Steckerverbindungen = reverse @negnudnibrevrekcetS;
     printf "Steckerverbindungen:\n";
     foreach my $n (@Steckerverbindungen) {
-      say $n;
+      printf " - %s\n", $n;
     };
 
 
