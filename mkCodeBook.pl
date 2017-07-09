@@ -109,12 +109,13 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # date
     # ----------------------------------------------------------------------
     my $date = $year . '-' . $month . '-' . $day;
-
+    printf "date:%s\n", $date if $debug;
 
     # ----------------------------------------------------------------------
     # pick random reflector - app has B, C, B (Thin) and C (thin).  I'm only doing B & C
     # ----------------------------------------------------------------------
     my $Umkehrwalze = random_string_from('BC',1);
+    printf "Umkehrwalze:%s\n", $Umkehrwalze if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -133,6 +134,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @Walzenlage = @Rotors[ @pick_indexes ];
+    say 'Walzenlage ' . @walzenlage if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -144,6 +146,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     } else {
         $Ringstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
+    printf "Ringstellung:%s\n", $Ringstellung if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -155,7 +158,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     } else {
         $Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
-
+    printf "Grundstellung:%s\n", $Grundstellung if $debug;
 
     # ----------------------------------------------------------------------
     # ----- set up the plugs set.  This is number of terminations.  a -> b = 2 connections.  Normal usage uses 10 connectors, or 20 connections
@@ -180,12 +183,14 @@ for (my $day=$num_days; $day >= 1; $day--) {
         push @negnudnibrevrekcetS, '.';
     }
     my @Steckerverbindungen = reverse @negnudnibrevrekcetS;
+    say 'Steckerverbindungen: ' . @Steckerverbindungen if $debug;
 
 
     # ----------------------------------------------------------------------
     # Kenngruppen
     # ----------------------------------------------------------------------
     my $Kenngruppen = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+    printf "Kenngruppen:%s\n", $Kenngruppen if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -234,5 +239,20 @@ $dbh->close;
 
 # ----- HC SVNT DRACONES -----
 =begin GHOSTCODE
+    my $query = "INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
+        AES_ENCRYPT(" . $network . ",key),
+        '" . $date . "',
+        AES_ENCRYPT(" . $Umkehrwalze . ",key),
+        AES_ENCRYPT(" . $Walzenlage[0] . ",key),
+        AES_ENCRYPT(" . $Walzenlage[1] . ",key),
+        AES_ENCRYPT(" . $Walzenlage[2] . ",key),
+        AES_ENCRYPT(" . $Walzenlage[3] . ",key),
+        AES_ENCRYPT(" . $Ringstellung . ",key),
+        AES_ENCRYPT(" . $Grundstellung . ",key),
+        AES_ENCRYPT(" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . ",key),
+        AES_ENCRYPT(" . $Kenngruppen . ",key),
+        AES_ENCRYPT(" . $Revision . ",key),
+        NOW()
+    )";
 =end GHOSTCODE
 =cut
