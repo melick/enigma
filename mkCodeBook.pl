@@ -192,8 +192,8 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
     # ----------------------------------------------------------------------
     my $return_value = 0;
-    my $query = "SET \@key = UNHEX(SHA2('" . $network . "',512));
-    INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
+    #SET \@key = UNHEX(SHA2('" . $network . "',512));
+    my $query = "INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
         AES_ENCRYPT(" . $network . ",\@key),
         '" . $date . "',
         AES_ENCRYPT(" . $Umkehrwalze . ",\@key),
