@@ -170,11 +170,13 @@ for (my $day=$num_days; $day >= 1; $day--) {
     for (my $s=$max_plug; $s < 24; $s++) {
         push @negnudnibrevrekcetS, '.';
     }
-    my @Steckerverbindungen = reverse @negnudnibrevrekcetS;
-    printf "Steckerverbindungen:\n";
-    foreach my $n (@Steckerverbindungen) {
+    my @Steck = reverse @negnudnibrevrekcetS;
+    printf "Steck:\n";
+    foreach my $n (@Steck) {
         printf " - %s\n", $n;
     };
+    my $Steckerverbindungen = join('.', @Steck[0..$max_plug]);
+    printf "Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -188,21 +190,21 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
     # ----------------------------------------------------------------------
     my $return_value = 0;
-    my $query = "SET key = UNHEX(SHA2('" . $network . "',512));
+    my $query = "SET \@key = UNHEX(SHA2('" . $network . "',512));
         INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
-            AES_ENCRYPT('" . $network . "',key),
+            AES_ENCRYPT('" . $network . "',\@key),
             '" . $date . "',
-            AES_ENCRYPT('" . $Umkehrwalze . "',key),
-            AES_ENCRYPT('" . $Walzenlage[0] . "',key),
-            AES_ENCRYPT('" . $Walzenlage[1] . "',key),
-            AES_ENCRYPT('" . $Walzenlage[2] . "',key),
-            AES_ENCRYPT('" . $Walzenlage[3] . "',key),
-            AES_ENCRYPT('" . $Ringstellung . "',key),
-            AES_ENCRYPT('" . $Grundstellung . "',key),
-            AES_ENCRYPT('" . $Kenngruppen . "',key),
-            AES_ENCRYPT('" . $Revision . "',key),
+            AES_ENCRYPT('" . $Umkehrwalze . "',\@key),
+            AES_ENCRYPT('" . $Walzenlage[0] . "',\@key),
+            AES_ENCRYPT('" . $Walzenlage[1] . "',\@key),
+            AES_ENCRYPT('" . $Walzenlage[2] . "',\@key),
+            AES_ENCRYPT('" . $Walzenlage[3] . "',\@key),
+            AES_ENCRYPT('" . $Ringstellung . "',\@key),
+            AES_ENCRYPT('" . $Grundstellung . "',\@key),
+            AES_ENCRYPT('" . $Steckerverbindungen . "',\@key),
+            AES_ENCRYPT('" . $Kenngruppen . "',\@key),
+            AES_ENCRYPT('" . $Revision . "',\@key),
             NOW())";
-#            AES_ENCRYPT('" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . "',key),
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
 =begin GHOSTCODE
@@ -234,25 +236,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
 =end GHOSTCODE
 =cut
 
-$dbh->close;
+$dbh->disconnect;
 
 
 # ----- HC SVNT DRACONES -----
 =begin GHOSTCODE
-    my $query = "INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
-        AES_ENCRYPT(" . $network . ",key),
-        '" . $date . "',
-        AES_ENCRYPT(" . $Umkehrwalze . ",key),
-        AES_ENCRYPT(" . $Walzenlage[0] . ",key),
-        AES_ENCRYPT(" . $Walzenlage[1] . ",key),
-        AES_ENCRYPT(" . $Walzenlage[2] . ",key),
-        AES_ENCRYPT(" . $Walzenlage[3] . ",key),
-        AES_ENCRYPT(" . $Ringstellung . ",key),
-        AES_ENCRYPT(" . $Grundstellung . ",key),
-        AES_ENCRYPT(" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . ",key),
-        AES_ENCRYPT(" . $Kenngruppen . ",key),
-        AES_ENCRYPT(" . $Revision . ",key),
-        NOW()
-    )";
 =end GHOSTCODE
 =cut
