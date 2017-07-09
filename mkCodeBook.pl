@@ -25,7 +25,7 @@ GetOptions ("debug"   => \$debug,     # flag
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
 
-use Math::Random::Secure qw(rand);
+use Bytes::Random::Secure;
 use Roman;
 use List::Util qw/shuffle/;
 use Date::Calc qw(:all);
@@ -79,6 +79,7 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 
 # ----- set up list if letters for number to letter conversion
 my @letters = 'A' .. 'Z';
+my @letters = 'A' .. 'Z';
 
 
 # ----- get todays date and the number of days in this month
@@ -117,7 +118,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # pick random reflector
     # ----------------------------------------------------------------------
-    my $Umkehrwalze = $letters[1 + int rand(2)];
+    my $Umkehrwalze = random_string_from('BCD',1);
 
 
     # ----------------------------------------------------------------------
@@ -143,9 +144,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Ringstellung;
     if ($num_rotors == 3) {
-        $Ringstellung = $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)];
+        $Ringstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
     } else {
-        $Ringstellung = $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)];
+        $Ringstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
     }
 
 
@@ -154,9 +155,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $Grundstellung;
     if ($num_rotors == 3) {
-        $Grundstellung = $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)];
+        $Grundstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
     } else {
-        $Grundstellung = $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)];
+        $Grundstellung = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
     }
 
 
@@ -188,7 +189,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # Kenngruppen
     # ----------------------------------------------------------------------
-    my $Kenngruppen = $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)] . ' ' . $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)] . ' ' . $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)] . ' ' . $letters[int rand(26)] . $letters[int rand(26)] . $letters[int rand(26)];
+    my $Kenngruppen = random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1) . ' ' . random_string_from($letters,1) . random_string_from($letters,1) . random_string_from($letters,1);
 
 
     # ----------------------------------------------------------------------
