@@ -63,7 +63,10 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 
 # ----- set up list if letters for number to letter conversion
 my @letters = 'A' .. 'Z';
-printf "letters:%s.\n", @letters;
+printf "letters:\n";
+foreach my $n (@letters) {
+    printf " - %s\n", $n;
+}
 
 
 # ----------------------------------------------------------------------
@@ -118,7 +121,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @Walzenlage = @Rotors[ @pick_indexes ];
     printf "Walzenlage:\n";
     foreach my $n (@Walzenlage) {
-      printf " - %s\n", $n;
+        printf " - %s\n", $n;
     }
 
 
@@ -170,7 +173,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @Steckerverbindungen = reverse @negnudnibrevrekcetS;
     printf "Steckerverbindungen:\n";
     foreach my $n (@Steckerverbindungen) {
-      printf " - %s\n", $n;
+        printf " - %s\n", $n;
     };
 
 
