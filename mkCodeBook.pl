@@ -10,17 +10,22 @@ my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDat
 #
 # usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -s '2014-09-01' -e '2014-09-30'
 
+my $which_db = 'Enigma';
+
 use warnings;
 use strict;
 
-my $which_db = 'Enigma';
-
-# ----- database handle
-use lib '/home/melick/perl5/lib/perl5';
-use Melick::dbLib qw(connection ckObject );
-my $dbh = &connection($which_db);
-#printf "dbh: [%s]\n", $dbh;
-
+# ----- input parameters
+use Getopt::Long;
+my $StartDate = '';
+my $EndDate = '';
+my $verbose;
+my $debug;
+GetOptions ("start=s" => \$StartDate, # string
+            "debug"   => \$debug),    # flag
+            "end=s"   => \$EndDate,   # string
+            "verbose" => \$verbose)   # flag
+or die("Error in command line arguments\n");
 
 use Math::Random::Secure qw(rand);
 use Roman;
@@ -28,21 +33,22 @@ use List::Util qw/shuffle/;
 use Date::Calc qw(:all);
 use Text::Banner;
 
-
-# ----- input parameters
-use Getopt::Long;
-my $StartDate = '';
-my $EndDate = '';
-my $verbose;
-GetOptions ("start=s" => \$StartDate, # string
-            "end=s"   => \$EndDate,   # string
-            "verbose" => \$verbose)   # flag
-or die("Error in command line arguments\n");
-
-
-# ----- input variables
+# ----- misc variables
 my $ScriptName = "$0";
 
+# ----- database handle
+use lib '/home/melick/perl5/lib/perl5';
+use Melick::dbLib qw(connection ckObject );
+my $dbh = &connection($which_db);
+#printf "dbh: [%s]\n", $dbh;
+
+# ----- file handles
+use File::Basename;  #qw(dirname, fileparse);
+my($filename, $DIR, $suffix) = fileparse($0);
+printf "filename [%s], DIR [%s] suffix [%s]\n", $filename, $DIR, $suffix if $verbose;
+
+my $filehandle = join('', $DIR, 'CodeBook-', $StartDate, '.dat');
+open(OUTPUT, ">$filehandle") || die "Can't open output file [$filehandle] : $!\n";
 
 # ----- Date & Time setups
 use DateTime;
@@ -67,24 +73,6 @@ if ($EndDate eq '') {
 }
 printf "[%s] my StartDate is: %s, my EndDate is: %s.\n", DateTime->today()->truncate( to => 'week' )->ymd, $StartDate, $EndDate;
 
-
-# ----- database handle
-my $which_db = 'enigma';
-
-use Melick::dbLib qw(connection ckObject );
-my $dbh = &connection($which_db);
-printf "dbh: [%s]\n", $dbh if $verbose;
-
-
-# ----- file handles
-use File::Basename;  #qw(dirname, fileparse);
-my($filename, $DIR, $suffix) = fileparse($0);
-printf "filename [%s], DIR [%s] suffix [%s]\n", $filename, $DIR, $suffix if $verbose;
-
-my $filehandle = join('', $DIR, 'CodeBook-', $StartDate, '.dat');
-open(OUTPUT, ">$filehandle") || die "Can't open output file [$filehandle] : $!\n";
-
-
 # ----- basic info
 my $network = 'Red Stallion';
 
@@ -94,10 +82,6 @@ my $network = 'Red Stallion';
 # ----------------------------------------------------------------------
 my $max_rotor = 8;  # Enigmas had 3, 5 or 8 available
 my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors installed for operation.
-
-
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
 
 
 # ----- set up list if letters for number to letter conversion
@@ -215,24 +199,38 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
 
     # ----------------------------------------------------------------------
-    # store in database
+    # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
     # ----------------------------------------------------------------------
     my $return_value = 0;
-    my $query = '';
-    $query = "INSERT INTO tbl_name (col1,col2) VALUES(15,col1*2);" . $object_type . "s WHERE " . $object_type . "_name = '" . $object . "'";
+    my $query = "SET @key = UNHEX(SHA2('" . $network . "',512));
+    INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
+        AES_ENCRYPT(" . $network . ",@key),
+        '" . $date . "',
+        AES_ENCRYPT(" . $Umkehrwalze . ",@key),
+        AES_ENCRYPT(" . $Walzenlage[0] . ",@key),
+        AES_ENCRYPT(" . $Walzenlage[1] . ",@key),
+        AES_ENCRYPT(" . $Walzenlage[2] . ",@key),
+        AES_ENCRYPT(" . $Walzenlage[3] . ",@key),
+        AES_ENCRYPT(" . $Ringstellung . ",@key),
+        AES_ENCRYPT(" . $Grundstellung . ",@key),
+        AES_ENCRYPT(" . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen . " " . pop @Steckerverbindungen, . ",@key),
+        AES_ENCRYPT(" . $Kenngruppen . ",@key),
+        AES_ENCRYPT(" . $Revision . ",@key),
+        NOW()
+    )";
+    printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
+=begin GHOSTCODE
     $sth->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
     while (my $ref = $sth->fetchrow_hashref()) {
         $return_value = $ref->{'numObjects'};
     }
+=end GHOSTCODE
+=cut
     $sth->finish();
     warn "dbLib ERROR: view check in dbLib terminated early by error: $DBI::errstr\n" if $DBI::err;
 
-
-
-
-
-
+=begin GHOSTCODE
     # ----------------------------------------------------------------------
     # print out settings
     # ----------------------------------------------------------------------
@@ -241,13 +239,22 @@ for (my $day=$num_days; $day >= 1; $day--) {
     } else {
         printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s | %s\n", $year, $month, $day, $Umkehrwalze, pop @Walzenlage, pop @Walzenlage, pop @Walzenlage, pop @Walzenlage, $Ringstellung, $Grundstellung, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, $Kenngruppen;
     }
+=end GHOSTCODE
+=cut
 
 }
 
-printf "-----------+---+---------------------+-----+-----+----------------------------------------+-------------\n";
+=begin GHOSTCODE
+#printf "-----------+---+---------------------+-----+-----+----------------------------------------+-------------\n";
+=end GHOSTCODE
+=cut
 
 close(OUTPUT);
 close(PERL);
+$dbh->close;
 
 
 # ----- HC SVNT DRACONES -----
+=begin GHOSTCODE
+=end GHOSTCODE
+=cut

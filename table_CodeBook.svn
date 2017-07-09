@@ -2,6 +2,7 @@ USE enigma;
 
 DROP TABLE `CodeBook`;
 
+-- field length = 16 * (trunc(string_length / 16) + 1)  per MySQL
 CREATE TABLE `CodeBook` (
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `CodeBook` VARBINARY(64) NOT NULL,
@@ -38,7 +39,9 @@ DECLARE @Steckerverbindungen VARCHAR(255);
 DECLARE @Kenngruppen VARCHAR(15);
 DECLARE @Revision VARCHAR(255);
 
-SET @key = 'Red Stallion';
+-- SET @key = 'Red Stallion';
+SET @key = UNHEX(SHA2('Red Stallion',512));
+
 
 SET @CodeBook = '12345678901234567890123456789012345678901234567890';
 SET @Umkehrwalze = '12345678901234567890123456789012345678901234567890';
@@ -52,7 +55,7 @@ SET @Steckerverbindungen = '1234567890123456789012345678901234567890123456789012
 SET @Kenngruppen = '123456789012345';
 SET @Revision = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890ABCDE';
 
-
+-- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
 INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
 AES_ENCRYPT(@CodeBook,@key),
 '2016-06-16',
