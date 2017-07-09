@@ -93,7 +93,7 @@ $a->size(1);
 $a->fill('*');
 $a->rotate('h');
 print $a->get;
-printf "        %04d %s\n\n", $TodaysDate->y, $months[$TodaysDate->m];
+printf "        %04d %s\n\n", $TodaysDate->year, $months[$TodaysDate->month];
 printf "-----------+---+---------------------+-----+-----+-------------------------------------+----------------\n";
 printf "    Day    |UKW|     Walzenlage      |Ring |Grund| Steckerverbindungen                 | Kenngruppen    \n";
 printf "-----------+---+---------------------+-----+-----+-------------------------------------+----------------\n";
