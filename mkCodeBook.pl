@@ -31,7 +31,7 @@ GetOptions ("debug"   => \$debug,     # flag
             "start=s" => \$StartDate, # string
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
-defined($StartDate) or die("Missing required StartDate [-s or --start]");
+print 'option is not defined.' if ( ! $StartDate );
 
 
 # ----- handle the date variable
