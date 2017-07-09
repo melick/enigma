@@ -31,29 +31,11 @@ use List::Util qw/shuffle/;
 use Date::Calc qw(:all);
 use Text::Banner;
 
-# ----- misc variables
-my $ScriptName = "$0";
-
 # ----- database handle
 use lib '/home/melick/perl5/lib/perl5';
 use Melick::dbLib qw(connection ckObject );
 my $dbh = &connection($which_db);
 #printf "dbh: [%s]\n", $dbh;
-
-# ----- file handles
-use File::Basename;  #qw(dirname, fileparse);
-my($filename, $DIR, $suffix) = fileparse($0);
-printf "filename [%s], DIR [%s] suffix [%s]\n", $filename, $DIR, $suffix if $verbose;
-
-my $filehandle = join('', $DIR, 'CodeBook-', $StartDate, '.dat');
-open(OUTPUT, ">$filehandle") || die "Can't open output file [$filehandle] : $!\n";
-
-# ----- Date & Time setups
-use DateTime;
-my $TodaysDate = DateTime->now;
-my $Now = join(' ', $TodaysDate->ymd, $TodaysDate->hms);
-printf "[%s] [%s : %s]\n", $Now, $TodaysDate->ymd, $TodaysDate->hms if $verbose;
-my $julian_day = $TodaysDate->day_of_year();
 
 # ----- if StartDate and EndDate were not passed, set them to the default of Sunday/Saturday of current week.
 if ($StartDate eq '') {
@@ -61,7 +43,14 @@ if ($StartDate eq '') {
         ->truncate( to => 'week' )
         ->subtract( days => 1 )->ymd;
 }
-printf "[%s] my StartDate is: %s.\n", DateTime->today()->truncate( to => 'week' )->ymd, $StartDate;
+printf "my StartDate is: %s.\n", $StartDate;
+my ($year, $month, $day) = split('-', $StartDate);
+printf "y:%s, m:%s, d:%s.\n", $year, $month, $day if $debug;
+# ----- get todays date and the number of days in this month
+my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+my $num_days = Days_in_Month($year,$month);
+printf "numdays:%s.\n", $num_days if $debug;
+
 
 # ----- basic info
 my $network = 'Red Stallion';
@@ -76,11 +65,7 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 
 # ----- set up list if letters for number to letter conversion
 my @letters = 'A' .. 'Z';
-
-
-# ----- get todays date and the number of days in this month
-my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-my $num_days = Days_in_Month($TodaysDate->year,$TodaysDate->month);
+printf "letters:%s.\n", @letters;
 
 
 # ----------------------------------------------------------------------
