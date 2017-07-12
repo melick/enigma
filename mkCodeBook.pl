@@ -189,18 +189,18 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $return_value = 0;
     my $query = "INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
-            AES_ENCRYPT('" . $network . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $network . "', '" . $network . "'),
             '" . $date . "',
-            AES_ENCRYPT('" . $Umkehrwalze . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Walzenlage[0] . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Walzenlage[1] . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Walzenlage[2] . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Walzenlage[3] . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Ringstellung . "', UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Grundstellung . "',UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Steckerverbindungen . "',UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Kenngruppen . "',UNHEX(SHA2('" . $network . "',512))),
-            AES_ENCRYPT('" . $Revision . "',UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Umkehrwalze . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Walzenlage[0] . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Walzenlage[1] . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Walzenlage[2] . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Walzenlage[3] . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Ringstellung . "', '" . $network . "'),
+            AES_ENCRYPT('" . $Grundstellung . "','" . $network . "'),
+            AES_ENCRYPT('" . $Steckerverbindungen . "','" . $network . "'),
+            AES_ENCRYPT('" . $Kenngruppen . "','" . $network . "'),
+            AES_ENCRYPT('" . $Revision . "','" . $network . "'),
             NOW());";
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
