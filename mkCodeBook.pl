@@ -207,9 +207,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
     $sth->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
-    while (my $ref = $sth->fetchrow_hashref()) {
-        $return_value = $ref->{'numObjects'};
-    }
+    #while (my $ref = $sth->fetchrow_hashref()) {
+    #    $return_value = $ref->{'numObjects'};
+    #}
     $sth->finish();
     warn "ERROR: record insert terminated early by error: $DBI::errstr\n" if $DBI::err;
 
