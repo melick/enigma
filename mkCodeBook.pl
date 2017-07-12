@@ -35,7 +35,7 @@ die("StartDate is not defined.\n") if ( ! $StartDate );
 
 
 # ----- handle the date variable
-printf "my StartDate is: %s.\n", $StartDate;
+printf "my StartDate is: %s.\n", $StartDate iv $verbose;
 my ($year, $month, $day_of_month) = split('-', $StartDate);
 printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
@@ -47,7 +47,7 @@ printf "numdays:%s.\n", $num_days if $debug;
 use lib '/home/melick/perl5/lib/perl5';
 use Melick::dbLib qw(connection ckObject );
 my $dbh = &connection($which_db);
-#printf "dbh: [%s]\n", $dbh;
+printf "dbh: [%s]\n", $dbh if $debug;
 
 
 # ----- basic info
@@ -63,10 +63,7 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 
 # ----- set up list if letters for number to letter conversion
 my @letters = 'A' .. 'Z';
-printf "letters:\n";
-foreach my $n (@letters) {
-    printf " - %s\n", $n;
-}
+printf "letters:\n" if $debug;
 
 
 # ----------------------------------------------------------------------
@@ -119,9 +116,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @Walzenlage = @Rotors[ @pick_indexes ];
-    printf "Walzenlage:\n";
+    printf "Walzenlage:\n" if $debug;
     foreach my $n (@Walzenlage) {
-        printf " - %s\n", $n;
+        printf " - %s\n", $n if $debug;
     }
 
 
@@ -171,7 +168,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
         push @negnudnibrevrekcetS, '.';
     }
     foreach my $n (@negnudnibrevrekcetS) {
-        printf " - %s\n", $n;
+        printf " - %s\n", $n if $debug;
     };
     my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
     printf "Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
@@ -189,9 +186,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $delete_query - "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "';";
     printf "delete_query: [%s]\n", $delete_query if $debug;
-    my $sth_d = $dbh->prepare($delete_query);
-    $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
-    $sth_d->finish();
+  # my $sth_d = $dbh->prepare($delete_query);
+  # $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
+  # $sth_d->finish();
 
     # ----------------------------------------------------------------------
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
@@ -229,10 +226,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
 }
 
-=begin GHOSTCODE
 #printf "-----------+---+---------------------+-----+-----+----------------------------------------+-------------\n";
-=end GHOSTCODE
-=cut
 
 $dbh->disconnect;
 
