@@ -170,12 +170,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
     for (my $s=$max_plug; $s < 24; $s++) {
         push @negnudnibrevrekcetS, '.';
     }
-    my @Steck = reverse @negnudnibrevrekcetS;
-    printf "Steck:\n";
-    foreach my $n (@Steck) {
+    foreach my $n (@negnudnibrevrekcetS) {
         printf " - %s\n", $n;
     };
-    my $Steckerverbindungen = join('.', @Steck[0..$max_plug]);
+    my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
     printf "Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
 
 
@@ -213,17 +211,14 @@ for (my $day=$num_days; $day >= 1; $day--) {
     $sth->finish();
     warn "ERROR: record insert terminated early by error: $DBI::errstr\n" if $DBI::err;
 
-=begin GHOSTCODE
     # ----------------------------------------------------------------------
     # print out settings
     # ----------------------------------------------------------------------
     if ($num_rotors == 3) {
-        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s | %s\n", $year, $month, $day, $Umkehrwalze, pop @Walzenlage, pop @Walzenlage, pop @Walzenlage, $Ringstellung, $Grundstellung, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     } else {
-        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s | %s\n", $year, $month, $day, $Umkehrwalze, pop @Walzenlage, pop @Walzenlage, pop @Walzenlage, pop @Walzenlage, $Ringstellung, $Grundstellung, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, pop @Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     }
-=end GHOSTCODE
-=cut
 
 }
 
