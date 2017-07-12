@@ -190,20 +190,19 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
     # ----------------------------------------------------------------------
     my $return_value = 0;
-    my $query = "SET \@key = UNHEX(SHA2('" . $network . "',512));
-        INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
-            AES_ENCRYPT('" . $network . "',\@key),
+    my $query = "INSERT INTO `CodeBook` (`CodeBook`, `date`, `Umkehrwalze`, `Walzenlage1`, `Walzenlage2`, `Walzenlage3`, `Walzenlage4`, `Ringstellung`, `Grundstellung`, `Steckerverbindungen`, `Kenngruppen`, `Revision`, `LastUpdate`) VALUES (
+            AES_ENCRYPT('" . $network . "', UNHEX(SHA2('" . $network . "',512))),
             '" . $date . "',
-            AES_ENCRYPT('" . $Umkehrwalze . "',\@key),
-            AES_ENCRYPT('" . $Walzenlage[0] . "',\@key),
-            AES_ENCRYPT('" . $Walzenlage[1] . "',\@key),
-            AES_ENCRYPT('" . $Walzenlage[2] . "',\@key),
-            AES_ENCRYPT('" . $Walzenlage[3] . "',\@key),
-            AES_ENCRYPT('" . $Ringstellung . "',\@key),
-            AES_ENCRYPT('" . $Grundstellung . "',\@key),
-            AES_ENCRYPT('" . $Steckerverbindungen . "',\@key),
-            AES_ENCRYPT('" . $Kenngruppen . "',\@key),
-            AES_ENCRYPT('" . $Revision . "',\@key),
+            AES_ENCRYPT('" . $Umkehrwalze . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Walzenlage[0] . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Walzenlage[1] . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Walzenlage[2] . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Walzenlage[3] . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Ringstellung . "', UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Grundstellung . "',UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Steckerverbindungen . "',UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Kenngruppen . "',UNHEX(SHA2('" . $network . "',512))),
+            AES_ENCRYPT('" . $Revision . "',UNHEX(SHA2('" . $network . "',512))),
             NOW());";
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
