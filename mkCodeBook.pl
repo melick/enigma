@@ -184,7 +184,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # remove old entry
     # ----------------------------------------------------------------------
-    my $delete_query - "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "';";
+    my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "';";
     printf "delete_query: [%s]\n", $delete_query if $debug;
   # my $sth_d = $dbh->prepare($delete_query);
   # $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
@@ -219,9 +219,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # print out settings
     # ----------------------------------------------------------------------
     if ($num_rotors == 3) {
-        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %38s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     } else {
-        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %38s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     }
 
 }
