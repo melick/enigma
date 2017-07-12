@@ -71,6 +71,9 @@ AES_ENCRYPT(@Kenngruppen,@key),
 AES_ENCRYPT(@Revision,@key),
 NOW());
 
+
+SET @key = UNHEX(SHA2('Red Stallion',512));
+
 SELECT AES_DECRYPT(`CodeBook`,@key)
      , `date`
      , AES_DECRYPT(`Umkehrwalze`,@key)

@@ -204,7 +204,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
             AES_ENCRYPT('" . $Steckerverbindungen . "',\@key),
             AES_ENCRYPT('" . $Kenngruppen . "',\@key),
             AES_ENCRYPT('" . $Revision . "',\@key),
-            NOW())";
+            NOW());";
     printf "query: [%s]\n", $query if $debug;
     my $sth = $dbh->prepare($query);
     $sth->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
