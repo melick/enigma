@@ -35,7 +35,7 @@ die("StartDate is not defined.\n") if ( ! $StartDate );
 
 
 # ----- handle the date variable
-printf "my StartDate is: %s.\n", $StartDate iv $verbose;
+printf "my StartDate is: %s.\n", $StartDate if $verbose;
 my ($year, $month, $day_of_month) = split('-', $StartDate);
 printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
