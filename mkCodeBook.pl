@@ -64,6 +64,9 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 # ----- set up list if letters for number to letter conversion
 my @letters = 'A' .. 'Z';
 printf "letters:\n" if $debug;
+foreach my $n (@letters) {
+    printf " - %s\n", $n if $debug;
+}
 
 
 # ----------------------------------------------------------------------
@@ -164,12 +167,23 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @negnudnibrevrekcetS = @Plugs[ @pick_plug_indexes ];
+
+    # I've got space in the output for 24, but might not use them all if $max_plug < 24.  Pushe the unneeded ones off the back end of the truck.
     for (my $s=$max_plug; $s < 24; $s++) {
-        push @negnudnibrevrekcetS, '.';
+        if ($s %2) {
+            # odd
+            push @negnudnibrevrekcetS, '';
+        } else {
+            # even
+            push @negnudnibrevrekcetS, ' ';
+        }
     }
+
+    # what string of perls did I end up with
     foreach my $n (@negnudnibrevrekcetS) {
-        printf " - %s\n", $n if $debug;
+        printf " - [%s]\n", $n if $debug;
     };
+
     my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
     printf "Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
 
@@ -219,9 +233,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # print out settings
     # ----------------------------------------------------------------------
     if ($num_rotors == 3) {
-        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %38s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     } else {
-        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %38s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     }
 
 }
