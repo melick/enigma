@@ -40,7 +40,7 @@ my ($year, $month, $day_of_month) = split('-', $StartDate);
 printf "y:%s, m:%s, d:%s.\n", $year, $month, $day_of_month if $debug;
 my @months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 my $num_days = Days_in_Month($year,$month);
-printf "numdays:%s.\n", $num_days if $debug;
+printf "numdays: [%s].\n", $num_days if $debug;
 
 
 # ----- database handle
@@ -65,7 +65,7 @@ my $num_rotors = 3; # Enigmas could have 3 (M1, M2 and M3) or 4 (M4) rotors inst
 my @letters = 'A' .. 'Z';
 printf "letters:\n" if $debug;
 foreach my $n (@letters) {
-    printf " - %s\n", $n if $debug;
+    printf " - [%s]\n", $n if $debug;
 }
 
 
@@ -96,13 +96,13 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my $day_len = 2;
     my $padded_day = sprintf ("%0${day_len}d", $day );
     my $date = $year . '-' . $month . '-' . $padded_day;
-    printf "date:%s\n", $date if $debug;
+    printf "date: [%s]\n", $date if $debug;
 
     # ----------------------------------------------------------------------
     # pick random reflector - app has B, C, B (Thin) and C (thin).  I'm only doing B & C
     # ----------------------------------------------------------------------
     my $Umkehrwalze = random_string_from('BC',1);
-    printf "Umkehrwalze:%s\n", $Umkehrwalze if $debug;
+    printf "Umkehrwalze: [%s]\n", $Umkehrwalze if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -123,7 +123,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @Walzenlage = @Rotors[ @pick_indexes ];
     printf "Walzenlage:\n" if $debug;
     foreach my $n (@Walzenlage) {
-        printf " - %s\n", $n if $debug;
+        printf " - [%s]\n", $n if $debug;
     }
 
 
@@ -136,7 +136,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     } else {
         $Ringstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
-    printf "Ringstellung:%s\n", $Ringstellung if $debug;
+    printf "Ringstellung: [%s]\n", $Ringstellung if $debug;
 
 
     # ----------------------------------------------------------------------
@@ -148,7 +148,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     } else {
         $Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
     }
-    printf "Grundstellung:%s\n", $Grundstellung if $debug;
+    printf "Grundstellung: [%s]\n", $Grundstellung if $debug;
 
     # ----------------------------------------------------------------------
     # ----- set up the plugs set.  This is number of terminations.  a -> b = 2 connections.  Normal usage uses 10 connectors, or 20 connections
@@ -167,7 +167,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @shuffled_plug_indexes = shuffle(0..$#Plugs);
 
     # Get just N of them.
-    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug ];
+    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug -1 ];
 
     # Pick cards from @deck
     my @negnudnibrevrekcetS = @Plugs[ @pick_plug_indexes ];
@@ -190,14 +190,14 @@ for (my $day=$num_days; $day >= 1; $day--) {
     }
     $Steckerverbindungen =~ s/^\s+//;
     $Steckerverbindungen =~ s/\s+$//;
-    printf "Final Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
+    printf "Final Steckerverbindungen: [%s]\n", $Steckerverbindungen if $debug;
 
 
     # ----------------------------------------------------------------------
     # Kenngruppen
     # ----------------------------------------------------------------------
     my $Kenngruppen = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . ' ' . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
-    printf "Kenngruppen:%s\n", $Kenngruppen if $debug;
+    printf "Kenngruppen: [%s]\n", $Kenngruppen if $debug;
 
 
     # ----------------------------------------------------------------------
