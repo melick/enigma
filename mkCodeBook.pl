@@ -238,9 +238,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # print out settings
     # ----------------------------------------------------------------------
     if ($num_rotors == 3) {
-        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %-35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     } else {
-        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %-35s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     }
 
 }
