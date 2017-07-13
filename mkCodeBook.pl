@@ -8,7 +8,9 @@
 my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
 #
-# usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -s '2014-09-01' [-d] [-v]
+# usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -p 'Red Stallion' -s '2014-09-01' [-v] [-d]
+# usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl --patrol 'Red Stallion' --start '2014-09-01' [--verbose] [--debug]
+
 
 my $which_db = 'Enigma';
 
@@ -24,10 +26,12 @@ use Text::Banner;
 
 # ----- input parameters
 use Getopt::Long;
+my $Patrol = '';
 my $StartDate = '';
 my $verbose;
 my $debug;
 GetOptions ("debug"   => \$debug,     # flag
+            "patrol=s" => \$Patrol,   # string
             "start=s" => \$StartDate, # string
             "verbose" => \$verbose)   # flag
 or die("Error in command line arguments\n");
@@ -203,7 +207,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # remove old entry
     # ----------------------------------------------------------------------
-    my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "';";
+    my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "' AND `CodeBook` = '" . $network . "';";
     printf "delete_query: [%s]\n", $delete_query if $debug;
     my $sth_d = $dbh->prepare($delete_query);
     $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
