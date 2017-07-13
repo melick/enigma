@@ -154,11 +154,13 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----- set up the plugs set.  This is number of terminations.  a -> b = 2 connections.  Normal usage uses 10 connectors, or 20 connections
     # ----------------------------------------------------------------------
     my $max_plug = 2 * int rand(12);
+    printf "max_plug: [%s]\n", $max_plug if $debug;
 
     # pick plug combinations
     my @Plugs;
     for (my $p=0; $p < 26; $p++) {
         push @Plugs, $letters[$p];
+        printf "plugs: [%s:%s]\n", $p, $letters[$p] if $debug;
     }
 
     # Shuffled list of indexes into @deck
