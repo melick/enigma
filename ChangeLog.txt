@@ -6,8 +6,15 @@ $WCDATE=%Y-%b-%d %I:%M:%S%p$
 
 Change Log:
 -----------------------------------------------------------------------
+2017 July 13 - LOMelick
+             - added the ability to pass the network to mkCodeBook.pl
+             - updated mkCodeBook.sh to generate Red Stallion, Pioneer
+               and Viking patrol codebooks.
+             - added ability to upload codebooks to my Wordpress blog's
+               media page vi https://metacpan.org/release/WP-API
+
 2017 July 07 - LOMelick
-             - set up on Destiny, cleaned up some of the backend/build structure
+             - set up on Destiny, cleaned up some of the build structure
                updated README.md
 
 2017 June 28 - LOMelick
