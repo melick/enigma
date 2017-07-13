@@ -169,11 +169,26 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
     # Pick cards from @deck
     my @negnudnibrevrekcetS = @Plugs[ @pick_plug_indexes ];
+    foreach my $n (@negnudnibrevrekcetS) {
+        printf " - [%s]\n", $n if $debug;
+    };
 
+=begin GHOSTCODE
     # I've got space in the output for 24, but might not use them all if $max_plug < 24.  Push the unneeded ones off the back end of the truck.
-    for (my $s=$max_plug; $s < 24; $s++) {
+    for (my $s=0; $s < $max_plug; $s++) {
+        if ($n %2) {
+            # odd
+            $Steckerverbindungen = join('', @negnudnibrevrekcetS[$n]);
+        } else {
+            # even
+            $Steckerverbindungen = join(' ', @negnudnibrevrekcetS[$n]);
+        }
+        printf " - [%s]\n", $n if $debug;
             push @negnudnibrevrekcetS, ' ';
     }
+    #for (my $s=$max_plug; $s < 24; $s++) {
+    #        push @negnudnibrevrekcetS, ' ';
+    #}
 
     # what string of perls did I end up with
     #my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
@@ -189,6 +204,8 @@ for (my $day=$num_days; $day >= 1; $day--) {
         printf " - [%s]\n", $n if $debug;
     };
     printf "Final Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
+=end GHOSTCODE
+=cut
 
 
     # ----------------------------------------------------------------------
