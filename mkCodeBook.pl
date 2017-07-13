@@ -179,7 +179,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my $Steckerverbindungen = '';
 
     # I've got space in the output for 24, but might not use them all if $max_plug < 24.  Push the unneeded ones off the back end of the truck.
-    for (my $s=0; $s < $max_plug; $s++) {
+    for (my $s=1; $s <= $max_plug; $s++) {
         if ($s %2) {
             # odd
             $Steckerverbindungen = join('', $Steckerverbindungen, $negnudnibrevrekcetS[$s]);
