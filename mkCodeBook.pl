@@ -179,7 +179,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     #my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
     my $Steckerverbindungen = '';
     foreach my $n (@negnudnibrevrekcetS) {
-        if ($s %2) {
+        if ($n %2) {
             # odd
             $Steckerverbindungen = join('', @negnudnibrevrekcetS[$n]);
         } else {
