@@ -173,6 +173,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
         printf " - [%s]\n", $n if $debug;
     };
 
+    #my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
+    my $Steckerverbindungen = '';
+
 =begin GHOSTCODE
     # I've got space in the output for 24, but might not use them all if $max_plug < 24.  Push the unneeded ones off the back end of the truck.
     for (my $s=0; $s < $max_plug; $s++) {
@@ -191,8 +194,6 @@ for (my $day=$num_days; $day >= 1; $day--) {
     #}
 
     # what string of perls did I end up with
-    #my $Steckerverbindungen = join('.', @negnudnibrevrekcetS[0..$max_plug]);
-    my $Steckerverbindungen = '';
     foreach my $n (@negnudnibrevrekcetS) {
         if ($n %2) {
             # odd
