@@ -180,10 +180,10 @@ for (my $day=$num_days; $day >= 1; $day--) {
     for (my $s=0; $s < $max_plug; $s++) {
         if ($s %2) {
             # odd
-            $Steckerverbindungen = join('', @negnudnibrevrekcetS[$n]);
+            $Steckerverbindungen = join('', @negnudnibrevrekcetS[$s]);
         } else {
             # even
-            $Steckerverbindungen = join(' ', @negnudnibrevrekcetS[$n]);
+            $Steckerverbindungen = join(' ', @negnudnibrevrekcetS[$s]);
         }
         printf " - [%s]\n", $Steckerverbindungen if $debug;
     }
