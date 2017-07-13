@@ -187,7 +187,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
             # even
             $Steckerverbindungen = join(' ', $Steckerverbindungen, $negnudnibrevrekcetS[$s]);
         }
-        printf " - [%s]\n", $Steckerverbindungen if $debug;
+        printf " -) [%s]\n", $Steckerverbindungen if $debug;
     }
 
 =begin GHOSTCODE
