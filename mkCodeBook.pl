@@ -207,7 +207,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # remove old entry
     # ----------------------------------------------------------------------
-    my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "' AND `CodeBook` = '" . $network . "';";
+    my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "' AND AES_DECRYPT(`CodeBook`,UNHEX(SHA2('" . $network . "',512))) = '" . $network . "';";
     printf "delete_query: [%s]\n", $delete_query if $debug;
     my $sth_d = $dbh->prepare($delete_query);
     $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
@@ -249,7 +249,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
 }
 
-#printf "-----------+---+---------------------+-----+-----+----------------------------------------+-------------\n";
+printf "-----------+---+---------------------+-----+-----+----------------------------------------+-------------\n";
 
 $dbh->disconnect;
 
