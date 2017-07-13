@@ -167,7 +167,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @shuffled_plug_indexes = shuffle(0..$#Plugs);
 
     # Get just N of them.
-    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug + 1 ];
+    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug ];
 
     # Pick cards from @deck
     my @negnudnibrevrekcetS = @Plugs[ @pick_plug_indexes ];
@@ -188,6 +188,8 @@ for (my $day=$num_days; $day >= 1; $day--) {
         }
         printf " -) [%s]\n", $Steckerverbindungen if $debug;
     }
+    $Steckerverbindungen =~ s/^\s+//;
+    $Steckerverbindungen =~ s/\s+$//;
     printf "Final Steckerverbindungen:%s\n", $Steckerverbindungen if $debug;
 
 
