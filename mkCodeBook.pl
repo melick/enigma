@@ -221,9 +221,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     my $delete_query = "DELETE FROM `CodeBook` WHERE `date` = '" . $date . "';";
     printf "delete_query: [%s]\n", $delete_query if $debug;
-  # my $sth_d = $dbh->prepare($delete_query);
-  # $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
-  # $sth_d->finish();
+    my $sth_d = $dbh->prepare($delete_query);
+    $sth_d->execute() or die "Can't execute SQL statement: $DBI::errstr\n";
+    $sth_d->finish();
 
     # ----------------------------------------------------------------------
     # store in database -- http://thinkdiff.net/mysql/encrypt-mysql-data-using-aes-techniques/
