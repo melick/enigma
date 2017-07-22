@@ -7,9 +7,8 @@
 my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
 #
-# usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl -f '' [-v] [-d]
-# usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl --file '' [--verbose] [--debug]
-
+# usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl -f '/home/melick/enigma/CodeBook-RS-2017-07.pdf' [-v] [-d]
+# usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl --file '/home/melick/enigma/CodeBook-RS-2017-07.pdf' [--verbose] [--debug]
 
 use warnings;
 use strict;
@@ -46,10 +45,10 @@ unless ($username && $password && $proxy && $server_time_zone) {
 # ----------------------------------------------------------------------
 
 my $api = WP::API->new(
-    username         => $username,
-    password         => $password,
-    proxy            => $proxy,
-    server_time_zone => $server_time_zone,
+    username         => '$username',
+    password         => '$password',
+    proxy            => '$proxy',
+    server_time_zone => '$server_time_zone',
 );
 
 
