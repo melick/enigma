@@ -211,7 +211,7 @@ do {
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
         $encrypted_message =~ s/\s+$//;
-        printf "encrypted message [%s]\n]\tlength [%s]\n", $encrypted_message, length $encrypted_message;
+        printf "encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
 
     } # end or row1 processing
 
