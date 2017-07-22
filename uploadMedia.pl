@@ -33,7 +33,7 @@ our $username         = $config->{username};
 our $password         = $config->{password};
 our $proxy            = $config->{proxy};
 our $server_time_zone = $config->{server_time_zone};
-printf "u:%s, p:%s, pr:%s,stz:%s.\n", $username, $password, $proxy, $server_time_zone;
+printf "u:%s, p:%s, pr:%s,stz:%s.\n", $username, $password, $proxy, $server_time_zone if $debug;
 
 # ----- check the vars
 unless ($username && $password && $proxy && $server_time_zone) {
@@ -44,7 +44,7 @@ unless ($username && $password && $proxy && $server_time_zone) {
 # ----------------------------------------------------------------------
 # connect to the blog
 # ----------------------------------------------------------------------
-
+use WP::API;
 my $api = WP::API->new(
     username         => $username,
     password         => $password,
