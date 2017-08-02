@@ -199,11 +199,12 @@ do {
         # ----- https://stackoverflow.com/questions/2461472/how-can-i-run-an-external-command-and-capture-its-output-in-perl
         # python example printf "/home/melick/enigma/python/enigma.py -r B -R I,V,II -O 1,2,3 -P AE,IO,UW -K FOO 'HELLOXWORLD'\n" if $debug;
         my $python_command = '';
-        if ($Walzenlage4 ne '') {
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Walzenlage4, $Ringstellung, $Steckerverbindungen, $Grundstellung, $Message;
-        } else {
+      # fix this some day.  I'm generating 4 walzenlages, but the emulator only has three and the codebooks I'm generating only have 3.
+      # if ($Walzenlage4 ne '') {
+      #     $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Walzenlage4, $Ringstellung, $Steckerverbindungen, $Grundstellung, $Message;
+      # } else {
             $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Grundstellung, $Message;
-        }
+      # }
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
