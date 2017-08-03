@@ -7,10 +7,10 @@
 my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
 #
-# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pvn -p RS -m 'Hello World' -v -d
-# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pvn --patrol 'RS' --message 'Hello World' --verbose --debug
-# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pvn --patrol 'RS' --message 'Hello World. 0000 000 00 1 2 3 4 5 6 7 8 9, 1.2 (well?) "`´‘’“”' --verbose --debug
-# usage: /usr/bin/perl /home/melick/enigma/runReport.pvn --patrol 'RS' --message 'ZOIG CPKO XBOT PVOL LLDI WSCJ FMAB AMXK LWZM UNOZ HIKG XQZT WLTJ LUMV JEJQ EAMV JZUF XLGP HWEZ UOMP QNTN IDAT YQYA IEHQ YY' --verbose --debug
+# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pl -p RS -m 'Hello World' -v -d
+# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pl --patrol 'RS' --message 'Hello World' --verbose --debug
+# usage: /usr/bin/perl /home/melick/enigma/sendMessage.pl --patrol 'RS' --message 'Hello World. 0000 000 00 1 2 3 4 5 6 7 8 9, 1.2 (well?) "`´‘’“”' --verbose --debug
+# usage: /usr/bin/perl /home/melick/enigma/runReport.pl --patrol 'RS' --message 'ZOIG CPKO XBOT PVOL LLDI WSCJ FMAB AMXK LWZM UNOZ HIKG XQZT WLTJ LUMV JEJQ EAMV JZUF XLGP HWEZ UOMP QNTN IDAT YQYA IEHQ YY' --verbose --debug
 
 
 my $which_db = 'Enigma';
@@ -213,6 +213,7 @@ do {
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
+        $encrypted_message =~ join('', $patrol_name, " | ", $Kenngruppen, " \ ", $encrypted_message);
         $encrypted_message =~ s/\n/ /g;
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
