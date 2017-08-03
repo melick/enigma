@@ -214,11 +214,12 @@ do {
 
         $encrypted_message = `$python_command`;
         $encrypted_message =~ join('', $patrol_name, " | ", $Kenngruppen, " \ ", $encrypted_message);
+        printf "(1)encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
         $encrypted_message =~ s/\n/ /g;
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
         $encrypted_message =~ s/\s+$//;
-        printf "encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
+        printf "(2)encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
 
     } # end or row1 processing
 
