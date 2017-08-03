@@ -115,16 +115,16 @@ my $Time = Time();
 
 # ----- translate the patrol abbreviations
 my %ShortNorth = (
-  'RS' => 'Red Stallion:Red Stallion:0',
-  'P'  => 'Pioneer:Pioneer:0',
-  'V'  => 'Viking:Viking:0',
+  'RS' => 'RDS:Red Stallion:0',
+  'P'  => 'PIO:Pioneer:0',
+  'V'  => 'VIK:Viking:0',
 );
 my ($patrol_name,$CodeBook,$other_info) = split(/\:/, $ShortNorth{$Patrol});
 printf "\t%s is working on patrol %s from CodeBook %s : %s at %s %s\n", $ScriptName, $patrol_name, $CodeBook, $other_info, $TodaysDate, $Time;
 
 
 # ----- set the key
-my $key_query = "SET \@key = UNHEX(SHA2('$patrol_name',512))";
+my $key_query = "SET \@key = UNHEX(SHA2('$CodeBook',512))";
 printf "\tkq:%s:\n", $key_query if $debug;
 my $sth = $dbh->prepare($key_query);
 $sth->execute() || die DBI::err.": ".$DBI::errstr;
@@ -152,7 +152,7 @@ SELECT AES_DECRYPT(`Umkehrwalze`,\@key) \
      , AES_DECRYPT(`Steckerverbindungen`,\@key) \
      , AES_DECRYPT(`Kenngruppen`,\@key) \
   FROM `CodeBook` \
- WHERE AES_DECRYPT(`Patrol`,\@key) in ('$patrol_name') \
+ WHERE AES_DECRYPT(`Patrol`,\@key) in ('$CodeBook') \
    AND `date` = '$TodaysDate';";
 
 printf "\tq:%s:\n", $query if $debug;
@@ -195,6 +195,11 @@ do {
             if ($field_num == 8) { $Kenngruppen = $row[$field_num]; printf "Kenngruppen:%s.\n", $Kenngruppen if $debug; };
 
         }
+
+
+        # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
+        $Message =~ join('', $patrol_name, " | ", $Kenngruppen, "\n", $Message);
+
 
         # ----- https://stackoverflow.com/questions/2461472/how-can-i-run-an-external-command-and-capture-its-output-in-perl
         # python example printf "/home/melick/enigma/python/enigma.py -r B -R I,V,II -O 1,2,3 -P AE,IO,UW -K FOO 'HELLOXWORLD'\n" if $debug;
