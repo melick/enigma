@@ -196,6 +196,9 @@ do {
 
         }
 
+        use Math::Random::Secure qw(rand);
+        my @KG = split / /, $Kenngruppen;
+        $Kenngruppen = $KG[ rand @KG ];
 
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         $Message =~ join('', $patrol_name, " | ", $Kenngruppen, "\n", $Message);
