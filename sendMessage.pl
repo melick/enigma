@@ -196,12 +196,10 @@ do {
 
         }
 
+        # ----- pick one of the Kenngruppen to send in the header
         use Math::Random::Secure qw(rand);
         my @KG = split / /, $Kenngruppen;
         $Kenngruppen = $KG[ rand @KG ];
-
-        # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
-        $Message =~ join('', $patrol_name, " | ", $Kenngruppen, "\n", $Message);
 
 
         # ----- https://stackoverflow.com/questions/2461472/how-can-i-run-an-external-command-and-capture-its-output-in-perl
@@ -216,8 +214,11 @@ do {
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
+
+        # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         $encrypted_message = join('', $patrol_name, ' | ', $Kenngruppen, ' \ ', $encrypted_message);
-        printf "(1)encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
+
+        # ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
         $encrypted_message =~ s/\n/ /g;
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
