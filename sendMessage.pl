@@ -300,12 +300,12 @@ do {
         printf "full_message [%s]\n", $full_message if $debug;
 
 
-        # ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
-      # $full_message =~ s/\n/ /g;
-      # $full_message =~ s/\r//g;
-        $full_message =~ s/^\s+//;
-        $full_message =~ s/\s+$//;
-        printf "(2)full message [%s]\n\tlength [%s]\n", $full_message, length $full_message;
+        ## ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
+        #$full_message =~ s/\n/ /g;
+        #$full_message =~ s/\r//g;
+        #$full_message =~ s/^\s+//;
+        #$full_message =~ s/\s+$//;
+        #printf "(2)full message [%s]\n\tlength [%s]\n", $full_message, length $full_message;
 
     } # end or row1 processing
 
