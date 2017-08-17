@@ -296,8 +296,8 @@ do {
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-        $full_message = join('', $patrol_name, ' DE CTU ',  ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
-        printf "full_message [%s]\n", $full_message if $debug;
+        $full_message = join('', $patrol_name, ' DE CTU ',  $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        printf "full_message %s [%s]\n", length $full_message, $full_message;
 
 
     } # end or row1 processing
@@ -311,7 +311,7 @@ $dbh->disconnect();
 use Net::Twitter::Lite::WithAPIv1_1;
 use Try::Tiny;
 
-my $url = "https://melick.wordpress.com/"; # ----- twitter treats this as 12 bytes
+my $url = "https://melick.wordpress.com/"; # ----- twitter treats this as 29 bytes
 my $hashtag = "#enigma";                   # ----- 7 bytes, and only included if there is room left in the tweet.
 tweet($full_message, $url, $hashtag);
 
@@ -349,15 +349,14 @@ sub tweet {
 
     # -- build tweet, max 140 chars
     my $tweet;
-    if (length("$text $hashtag") < 118) {
+    if (length("$text $hashtag") < 110) {
         $tweet = "$text $hashtag $url";
-    } elsif (length($text) < 118) {
+    } elsif (length($text) < 110) { # try dropping the hashtag
         $tweet = "$text $url";
-    } else { # shorten text, drop the hashtag {
-        $tweet = substr($text, 0, 113) . "... " . $url;
+    } else { # shorten text, drop the url & hashtag {
+        $tweet = substr($text, 0, 140);
     }
-=end GHOSTCODE
-=cut
+
 
     # -- tweet it
     try {
