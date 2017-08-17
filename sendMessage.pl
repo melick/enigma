@@ -131,29 +131,31 @@ my $sth = $dbh->prepare($key_query);
 $sth->execute() || die DBI::err.": ".$DBI::errstr;
 
 # ----- Proceed.
+my $bskg_order = '';
+my $Buchstabenkenngruppe = '';
+my $Buchstabenkenngruppe_a = '';
+my $Buchstabenkenngruppe_b = '';
+my $encrypted_message = '';
+my $encrypted_Spruchschlussel = '';
+my $full_message = '';
+my $Grundstellung = '';
+my $Kenngruppen = '';
+my $message_header = '';
 my $num_rotors = 3;   # ----- default for now... LOMelick - 2017-08-16
+my $python_command = '';
+my $python_command_a = '';
+my $python_command_b = '';
+my $random_Grundstellung = '';
+my $Ringstellung = '';
+my $Spruchschlussel = '';
+my $Steckerverbindungen = '';
 my $Umkehrwalze = '';
+my $unencrypted_message = '';
 my $Walzenlage1 = '';
 my $Walzenlage2 = '';
 my $Walzenlage3 = '';
 my $Walzenlage4 = '';
-my $Ringstellung = '';
-my $Grundstellung = '';
-my $Steckerverbindungen = '';
-my $Kenngruppen = '';
 my @KG;
-my $python_command_a = '';
-my $python_command = '';
-my $encrypted_message = '';
-my $Buchstabenkenngruppe = '';
-my $Spruchschlussel = '';
-my $random_Grundstellung = '';
-my $encrypted_Spruchschlussel = '';
-my $Buchstabenkenngruppe_a = '';
-my $Buchstabenkenngruppe_b = '';
-my $bskg_order = '';
-my $message_header = '';
-my $full_message = '';
 
 
 my $query = "\
