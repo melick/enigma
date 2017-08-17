@@ -296,7 +296,7 @@ do {
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        $full_message = join('', $patrol_name, ' DE CTU ',  ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
         printf "full_message [%s]\n", $full_message if $debug;
 
 
