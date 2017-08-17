@@ -141,6 +141,7 @@ my $Grundstellung = '';
 my $Steckerverbindungen = '';
 my $Kenngruppen = '';
 my @KG;
+my $python_command_a = '';
 my $python_command = '';
 my $encrypted_message = '';
 my $Buchstabenkenngruppe = '';
@@ -220,7 +221,7 @@ do {
         use Math::Random::Secure qw(rand);
         @KG = split / /, $Kenngruppen;
         $Kenngruppen = $KG[ rand @KG ];
-        printf "Kengruppen [%s]\n", $Kenngruppen if $debug;
+        printf "Kengruppen [%s]\n\n", $Kenngruppen if $debug;
 
 
         # ----------------------------------------------------------------------
@@ -261,8 +262,8 @@ do {
         }
         printf "Spruchschlussel: [%s]\n", $Spruchschlussel if $debug;
 
-        $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlussel;
-        $encrypted_Spruchschlussel = `$python_command`;
+        $python_command_a .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlussel;
+        $encrypted_Spruchschlussel = `$python_command_a`;
         $encrypted_Spruchschlussel =~ s/\n/ /g;
         $encrypted_Spruchschlussel =~ s/\r//g;
         $encrypted_Spruchschlussel =~ s/^\s+//;
@@ -278,6 +279,7 @@ do {
         if ($num_rotors == 4) {
             $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
         } else {
+            printf "should see this.\n" if $debug;
             $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
         }
         printf "python_command [%s]\n", $python_command if $debug;
