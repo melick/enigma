@@ -111,7 +111,7 @@ my $julian_day = &jday($month,$day,$year);
 
 use Melick::Time;
 my $Time = Time();
-my $Time =~ s/\://g;
+$Time =~ s/\://g;
 $Time = substr($Time, 0, 4);
 
 # ----- translate the patrol abbreviations
