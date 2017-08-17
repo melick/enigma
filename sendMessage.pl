@@ -150,6 +150,7 @@ my $encrypted_Spruchschlussel = '';
 my $Buchstabenkenngruppe_a = '';
 my $Buchstabenkenngruppe_b = '';
 my $bskg_order = '';
+my $full_message = '';
 
 
 my $query = "\
@@ -284,7 +285,7 @@ do {
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-        my $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
         printf "full_message [%s]\n", $full_message if $debug;
 
 
