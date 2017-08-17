@@ -322,7 +322,7 @@ my $url = "https://melick.wordpress.com/"; # ----- twitter treats this as 12 byt
 my $hashtag = "#enigma";                   # ----- 7 bytes, and only included if there is room left in the tweet.
 
 if (length $full_message <= 107) {
-  # tweet($full_message, $url, $hashtag);
+    tweet($full_message, $url, $hashtag);
 } else {
     printf "ERROR: message too long to include URL and hashtag [%s]\n", length $full_message;
 }
