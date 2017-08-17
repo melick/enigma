@@ -144,9 +144,9 @@ my @KG;
 my $python_command = '';
 my $encrypted_message = '';
 my $Buchstabenkenngruppe = '';
-my $Spruchschlussel = '';
+my $Spruchschlüssel = '';
 my $random_Grundstellung = '';
-my $encrypted_Spruchschlussel = '';
+my $encrypted_Spruchschlüssel = '';
 my $Buchstabenkenngruppe_a = '';
 my $Buchstabenkenngruppe_b = '';
 my $bskg_order = '';
@@ -255,15 +255,15 @@ do {
         printf "random Grundstellung: [%s]\n", $random_Grundstellung if $debug;
 
         if ($num_rotors == 3) {
-            $Spruchschlussel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+            $Spruchschlüssel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
         } else {
-            $Spruchschlussel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+            $Spruchschlüssel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
         }
-        printf "$Spruchschlussel: [%s]\n", $$Spruchschlussel if $debug;
+        printf "$Spruchschlüssel: [%s]\n", $Spruchschlüssel if $debug;
 
-        $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlussel;
-        $encrypted_Spruchschlussel = `$python_command`;
-        printf "encrypted_Spruchschlussel [%s]\n", $encrypted_Spruchschlussel if $debug;
+        $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlüssel;
+        $encrypted_Spruchschlüssel = `$python_command`;
+        printf "encrypted_Spruchschlüssel [%s]\n", $encrypted_Spruchschlüssel if $debug;
 
 
         # ----------------------------------------------------------------------
@@ -272,9 +272,9 @@ do {
         # ----------------------------------------------------------------------
       # fix this some day.  I'm generating 4 walzenlages, but the emulator only has three and the codebooks I'm generating only have 3.
         if ($num_rotors == 4) {
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
+            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlüssel, $Message;
         } else {
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
+            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlüssel, $Message;
         }
         printf "python_command [%s]\n", $python_command if $debug;
 
@@ -285,7 +285,7 @@ do {
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlüssel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
         printf "full_message [%s]\n", $full_message if $debug;
 
 
@@ -395,7 +395,7 @@ sub tweet {
     more complex and elaborate.  Prior to encryption the message was encoded using the Kurzsignalheft code book.  The Kurzsignalheft
     contained tables to convert sentences into four-letter groups.  A great many choices were included, for example, logistic matters
     such as refuelling and rendezvous with supply ships, positions and grid lists, harbour names, countries, weapons, weather conditions,
-    enemy positions and ships, date and time tables.  Another codebook contained the Kenngruppen and Spruchschlussel: the key identification
+    enemy positions and ships, date and time tables.  Another codebook contained the Kenngruppen and Spruchschlüssel: the key identification
     and message key.
 
 =end GHOSTCODE
