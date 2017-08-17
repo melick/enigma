@@ -294,7 +294,7 @@ do {
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
         $encrypted_message =~ s/\s+$//;
-        $encrypted_message =~ substr($encrypted_message, 0, 140 - length $message_header);
+        $encrypted_message = substr($encrypted_message, 0, 140 - length $message_header);
         printf "encrypted_message [%s]\n", $encrypted_message if $debug;
 
 
