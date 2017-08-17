@@ -289,7 +289,7 @@ do {
         printf "python_command [%s]\n", $python_command if $debug;
 
         # ----- set up header just to see how long it might be.  We'll make the real header later
-        $message_header = join('', $patrol_name, ' DE CTU ',  $Time, ' = NNN = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ' );
+        $message_header = join('', $patrol_name, ' DE CTU ',  $Time, ' = NNN = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', '=' );
 
         $encrypted_message = `$python_command`;
         $encrypted_message =~ s/\n/ /g;
