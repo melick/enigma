@@ -152,6 +152,7 @@ my $encrypted_Spruchschlussel = '';
 my $Buchstabenkenngruppe_a = '';
 my $Buchstabenkenngruppe_b = '';
 my $bskg_order = '';
+my $message_header = '';
 my $full_message = '';
 
 
@@ -285,11 +286,15 @@ do {
         }
         printf "python_command [%s]\n", $python_command if $debug;
 
+        # ----- set up header just to see how long it might be.  We'll make the real header later
+        $message_header = join('', $patrol_name, ' DE CTU ',  $Time, ' = NNN = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ' );
+
         $encrypted_message = `$python_command`;
         $encrypted_message =~ s/\n/ /g;
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
         $encrypted_message =~ s/\s+$//;
+        $encrypted_message =~ substr($encrypted_message, 0, 140 - length $message_header);
         printf "encrypted_message [%s]\n", $encrypted_message if $debug;
 
 
