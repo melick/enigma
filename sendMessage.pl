@@ -300,7 +300,7 @@ do {
         printf "encrypted_message [%s]\n", $encrypted_message if $debug;
         $python_command_b .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $encrypted_message;
         $unencrypted_message = `$python_command_b`;
-        printf "You'll be sending %s characters as the message: [%s]\n", length $unencrypted_message, unencrypted_message;
+        printf "You'll be sending %s characters as the message: [%s]\n", length $unencrypted_message, $unencrypted_message;
 
 
         # ----- add the header and truncate to 140.
