@@ -229,11 +229,11 @@ do {
         $Buchstabenkenngruppe_b = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
 
         $bskg_order = random_string_from('123',1);
-        if ($bskg_order eq '1') then {
+        if ($bskg_order eq "1") then {
             $Buchstabenkenngruppe = join('', $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b, $Kenngruppen);
-        } elsif ($bskg_order eq '2') {
+        } elsif ($bskg_order eq "2") {
             $Buchstabenkenngruppe = join('', $Buchstabenkenngruppe_a, $Kenngruppen, $Buchstabenkenngruppe_b);
-        } elsif ($bskg_order eq '3') {
+        } elsif ($bskg_order eq "3") {
             $Buchstabenkenngruppe = join('', $Kenngruppen, $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b);
         } else {
             printf "ERROR: invalid bskg order [%s]\n", bskg_order;
