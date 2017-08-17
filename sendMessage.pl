@@ -238,7 +238,7 @@ do {
         } elsif ($bskg_order eq '3') {
             $Buchstabenkenngruppe = join('', $Kenngruppen, $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b);
         } else {
-            printf "ERROR: invalid bskg order [%s]\n", bskg_order;
+            printf "ERROR: invalid bskg order [%s]\n", $bskg_order;
         }
         printf "Buchstabenkenngruppe [%s]\n", $Buchstabenkenngruppe if $debug;
 
