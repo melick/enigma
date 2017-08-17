@@ -298,8 +298,13 @@ do {
         $encrypted_message =~ s/\s+$//;
         $encrypted_message = substr($encrypted_message, 0, 139 - length $message_header);
         printf "encrypted_message [%s]\n", $encrypted_message if $debug;
+
         $python_command_b .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $encrypted_message;
         $unencrypted_message = `$python_command_b`;
+        $unencrypted_message =~ s/\n/ /g;
+        $unencrypted_message =~ s/\r//g;
+        $unencrypted_message =~ s/^\s+//;
+        $unencrypted_message =~ s/\s+$//;
         printf "You'll be sending %s characters as the message: [%s]\n", length $unencrypted_message, $unencrypted_message;
 
 
