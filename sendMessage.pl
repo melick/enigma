@@ -360,15 +360,16 @@ sub tweet {
 
     # -- build tweet, max 140 chars
     my $tweet;
-
+=begin GHOSTCODE
     if (length("$text $hashtag") < 118) {
-        $tweet = "$text $url $hashtag";
+        $tweet = "$text $hashtag $url";
     } elsif (length($text) < 118) {
       $tweet = "$text $url";
     } else { # shorten text, drop the hashtag {
       $tweet = substr($text, 0, 113) . "... " . $url;
     }
-
+=end GHOSTCODE
+=cut
 
     # -- tweet it
     try {
