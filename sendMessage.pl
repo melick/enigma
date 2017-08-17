@@ -296,7 +296,7 @@ do {
         $encrypted_message =~ s/\r//g;
         $encrypted_message =~ s/^\s+//;
         $encrypted_message =~ s/\s+$//;
-        $encrypted_message = substr($encrypted_message, 0, 140 - length $message_header);
+        $encrypted_message = substr($encrypted_message, 0, 139 - length $message_header);
         printf "encrypted_message %s characters [%s]\n", length $encrypted_message, $encrypted_message if $debug;
 
         $python_command_b .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $encrypted_message;
@@ -310,7 +310,6 @@ do {
 
         # ----- add the header and truncate to 140.
         $full_message = join('', $patrol_name, ' DE CTU ',  $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
-        $full_message = substr($full_message,0,139) . '=';
         printf "full_message %s [%s]\n", length $full_message, $full_message;
 
 
