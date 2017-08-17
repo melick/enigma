@@ -259,10 +259,14 @@ do {
         } else {
             $Spruchschlussel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
         }
-        printf "$Spruchschlussel: [%s]\n", $Spruchschlussel if $debug;
+        printf "Spruchschlussel: [%s]\n", $Spruchschlussel if $debug;
 
         $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlussel;
         $encrypted_Spruchschlussel = `$python_command`;
+        $encrypted_Spruchschlussel =~ s/\n/ /g;
+        $encrypted_Spruchschlussel =~ s/\r//g;
+        $encrypted_Spruchschlussel =~ s/^\s+//;
+        $encrypted_Spruchschlussel =~ s/\s+$//;
         printf "encrypted_Spruchschlussel [%s]\n", $encrypted_Spruchschlussel if $debug;
 
 
