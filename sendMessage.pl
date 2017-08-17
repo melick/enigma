@@ -142,6 +142,7 @@ my $Kenngruppen = '';
 my @KG;
 my $python_command = '';
 my $encrypted_message = '';
+my $Buchstabenkenngruppe = '';
 my $Spruchschlüssel = '';
 my $random_Grundstellung = '';
 my $encrypted_Spruchschlüssel = '';
@@ -214,6 +215,7 @@ do {
         use Math::Random::Secure qw(rand);
         @KG = split / /, $Kenngruppen;
         $Kenngruppen = $KG[ rand @KG ];
+        printf "Kengruppen [%s]\n", $Kenngruppen if $debug;
 
 
         # ----------------------------------------------------------------------
@@ -222,7 +224,6 @@ do {
         use Bytes::Random::Secure qw(random_string_from);
         my $Buchstabenkenngruppe_a = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
         my $Buchstabenkenngruppe_b = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
-        my $Buchstabenkenngruppe = '';
 
         my $bskg_order = random_string_from('123',1);
         if ($bskg_order eq '1') then {
@@ -234,6 +235,7 @@ do {
         } else {
             printf "ERROR: invalid bskg order [%s]\n", bskg_order;
         }
+        printf "Buchstabenkenngruppe [%s]\n", $Buchstabenkenngruppe if $debug;
 
 
         # ----------------------------------------------------------------------
@@ -256,6 +258,7 @@ do {
 
         $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlüssel;
         $encrypted_Spruchschlüssel = `$python_command`;
+        printf "encrypted_Spruchschlüssel [%s]\n", $encrypted_Spruchschlüssel if $debug;
 
 
         # ----------------------------------------------------------------------
@@ -271,13 +274,14 @@ do {
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
+        printf "encrypted_message [%s]\n", $encrypted_message if $debug;
 
 
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-       #$encrypted_message = join('', $patrol_name, ' | ', $Buchstabenkenngruppe, ' \ ', $encrypted_message);
         my $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlüssel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        printf "full_message [%s]\n", $full_message if $debug;
 
 
         # ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
