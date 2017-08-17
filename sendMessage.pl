@@ -146,6 +146,9 @@ my $Buchstabenkenngruppe = '';
 my $Spruchschlussel = '';
 my $random_Grundstellung = '';
 my $encrypted_Spruchschlussel = '';
+my $Buchstabenkenngruppe_a = '';
+my $Buchstabenkenngruppe_b = '';
+my $bskg_order = '';
 
 
 my $query = "\
@@ -222,10 +225,10 @@ do {
         # ----- start assembling the Buchstabenkenngruppe
         # ----------------------------------------------------------------------
         use Bytes::Random::Secure qw(random_string_from);
-        my $Buchstabenkenngruppe_a = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
-        my $Buchstabenkenngruppe_b = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        $Buchstabenkenngruppe_a = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        $Buchstabenkenngruppe_b = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
 
-        my $bskg_order = random_string_from('123',1);
+        $bskg_order = random_string_from('123',1);
         if ($bskg_order eq '1') then {
             $Buchstabenkenngruppe = join('', $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b, $Kenngruppen);
         } elsif ($bskg_order eq '2') {
