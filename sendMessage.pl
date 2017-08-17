@@ -300,13 +300,6 @@ do {
         printf "full_message [%s]\n", $full_message if $debug;
 
 
-        ## ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
-        #$full_message =~ s/\n/ /g;
-        #$full_message =~ s/\r//g;
-        #$full_message =~ s/^\s+//;
-        #$full_message =~ s/\s+$//;
-        #printf "(2)full message [%s]\n\tlength [%s]\n", $full_message, length $full_message;
-
     } # end or row1 processing
 
 } until (!$sth->more_results);
@@ -320,12 +313,8 @@ use Try::Tiny;
 
 my $url = "https://melick.wordpress.com/"; # ----- twitter treats this as 12 bytes
 my $hashtag = "#enigma";                   # ----- 7 bytes, and only included if there is room left in the tweet.
+tweet($full_message, $url, $hashtag);
 
-#if (length $full_message <= 107) {
-    tweet($full_message, $url, $hashtag);
-#} else {
-#    printf "ERROR: message too long to include URL and hashtag [%s]\n", length $full_message;
-#}
 
 # ----- https://perlmaven.com/sending-tweets-from-a-perl-script
 # could also pull down previous tweets, decode and post
@@ -359,14 +348,13 @@ sub tweet {
 
 
     # -- build tweet, max 140 chars
-    my $tweet = "$text $hashtag $url";
-=begin GHOSTCODE
+    my $tweet;
     if (length("$text $hashtag") < 118) {
         $tweet = "$text $hashtag $url";
     } elsif (length($text) < 118) {
-      $tweet = "$text $url";
+        $tweet = "$text $url";
     } else { # shorten text, drop the hashtag {
-      $tweet = substr($text, 0, 113) . "... " . $url;
+        $tweet = substr($text, 0, 113) . "... " . $url;
     }
 =end GHOSTCODE
 =cut
