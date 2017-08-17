@@ -286,13 +286,17 @@ do {
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
+        $encrypted_message =~ s/\n/ /g;
+        $encrypted_message =~ s/\r//g;
+        $encrypted_message =~ s/^\s+//;
+        $encrypted_message =~ s/\s+$//;
         printf "encrypted_message [%s]\n", $encrypted_message if $debug;
 
 
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
         #U6Z DE C 1510 = 49 = EHZ TBS = 
         #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
-        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' =\n', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+        $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlussel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
         printf "full_message [%s]\n", $full_message if $debug;
 
 
