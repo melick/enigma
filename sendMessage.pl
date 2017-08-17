@@ -139,7 +139,13 @@ my $Ringstellung = '';
 my $Grundstellung = '';
 my $Steckerverbindungen = '';
 my $Kenngruppen = '';
+my @KG;
+my $python_command = '';
 my $encrypted_message = '';
+my $Spruchschlüssel = '';
+my $random_Grundstellung = '';
+my $encrypted_Spruchschlüssel = '';
+
 
 my $query = "\
 SELECT AES_DECRYPT(`Umkehrwalze`,\@key) \
@@ -158,13 +164,18 @@ SELECT AES_DECRYPT(`Umkehrwalze`,\@key) \
 printf "\tq:%s:\n", $query if $debug;
 $sth = $dbh->prepare($query);
 $sth->execute() || die DBI::err.": ".$DBI::errstr;
+
+
+# ----- let's git bizzy
 do {
 
     # ----- handle the data from each row
     while (my @row = $sth->fetchrow_array())  {
 
         foreach my $field_num (0..$#row) {
+            # ----------------------------------------------------------------------
             # ----- assign variables here...
+            # ----------------------------------------------------------------------
             if ($field_num == 0) { $Umkehrwalze = $row[$field_num]; printf "Umkehrwalze:%s.\n", $Umkehrwalze if $debug; };
             if ($field_num == 1) { $Walzenlage1 = $row[$field_num]; printf "Walzenlage1:%s.\n", $Walzenlage1 if $debug; };
             if ($field_num == 2) { $Walzenlage2 = $row[$field_num]; printf "Walzenlage2:%s.\n", $Walzenlage2 if $debug; };
@@ -196,34 +207,85 @@ do {
 
         }
 
-        # ----- pick one of the Kenngruppen to send in the header
+
+        # ----------------------------------------------------------------------
+        # ----- pick one of the Kenngruppen to use in the Buchstabenkengruppe
+        # ----------------------------------------------------------------------
         use Math::Random::Secure qw(rand);
-        my @KG = split / /, $Kenngruppen;
+        @KG = split / /, $Kenngruppen;
         $Kenngruppen = $KG[ rand @KG ];
 
 
+        # ----------------------------------------------------------------------
+        # ----- start assembling the Buchstabenkenngruppe
+        # ----------------------------------------------------------------------
+        use Bytes::Random::Secure qw(random_string_from);
+        my $Buchstabenkenngruppe_a = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        my $Buchstabenkenngruppe_b = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        my $Buchstabenkenngruppe = '';
+
+        my $bskg_order = random_string_from('123',1);
+        if ($bskg_order eq '1') then {
+            $Buchstabenkenngruppe = join('', $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b, $Kenngruppen);
+        } elsif ($bskg_order eq '2') {
+            $Buchstabenkenngruppe = join('', $Buchstabenkenngruppe_a, $Kenngruppen, $Buchstabenkenngruppe_b);
+        } elsif ($bskg_order eq '3') {
+            $Buchstabenkenngruppe = join('', $Kenngruppen, $Buchstabenkenngruppe_a, $Buchstabenkenngruppe_b);
+        } else {
+            printf "ERROR: invalid bskg order [%s]\n", bskg_order;
+        }
+
+
+        # ----------------------------------------------------------------------
+        # ----- Procedure for post-1940 Grundstellung Wehrmacht (and Heer?) procedure per http://users.telenet.be/d.rijmenants/en/enigmaproc.htm
+        #       pick new/random starting positions
+        # ----------------------------------------------------------------------
+        if ($num_rotors == 3) {
+            $random_Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        } else {
+            $random_Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        }
+        printf "random Grundstellung: [%s]\n", $random_Grundstellung if $debug;
+
+        if ($num_rotors == 3) {
+            $Spruchschlüssel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        } else {
+            $Spruchschlüssel = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
+        }
+        printf "$Spruchschlüssel: [%s]\n", $$Spruchschlüssel if $debug;
+
+        $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlüssel;
+        $encrypted_Spruchschlüssel = `$python_command`;
+
+
+        # ----------------------------------------------------------------------
         # ----- https://stackoverflow.com/questions/2461472/how-can-i-run-an-external-command-and-capture-its-output-in-perl
         # python example printf "/home/melick/enigma/python/enigma.py -r B -R I,V,II -O 1,2,3 -P AE,IO,UW -K FOO 'HELLOXWORLD'\n" if $debug;
-        my $python_command = '';
+        # ----------------------------------------------------------------------
       # fix this some day.  I'm generating 4 walzenlages, but the emulator only has three and the codebooks I'm generating only have 3.
       # if ($Walzenlage4 ne '') {
-      #     $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Walzenlage4, $Ringstellung, $Steckerverbindungen, $Grundstellung, $Message;
+      #     $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlüssel, $Message;
       # } else {
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Grundstellung, $Message;
+            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlüssel, $Message;
       # }
         printf "python_command [%s]\n", $python_command if $debug;
 
         $encrypted_message = `$python_command`;
 
+
         # ----- add the header which includes a moniker for the patrol and one of the Kenngruppen for the day.
-        $encrypted_message = join('', $patrol_name, ' | ', $Kenngruppen, ' \ ', $encrypted_message);
+        #U6Z DE C 1510 = 49 = EHZ TBS = 
+        #TVEXS QBLTW LDAHH YEOEF PTWYB LENDP MKOXL DFAMU DWIJD XRJZ= 
+       #$encrypted_message = join('', $patrol_name, ' | ', $Buchstabenkenngruppe, ' \ ', $encrypted_message);
+        my $full_message = join('', 'ALLES DE ', $patrol_name, ' ', $Time, ' = ', length $encrypted_message, ' = ', $random_Grundstellung, ' ', $encrypted_Spruchschlüssel, ' = ', $Buchstabenkenngruppe, ' ', $encrypted_message, '=' );
+
 
         # ----- clean up any carriage returns, line feeds and leading/trailing spaces that might have cropped up along the way.
-        $encrypted_message =~ s/\n/ /g;
-        $encrypted_message =~ s/\r//g;
-        $encrypted_message =~ s/^\s+//;
-        $encrypted_message =~ s/\s+$//;
-        printf "(2)encrypted message [%s]\n\tlength [%s]\n", $encrypted_message, length $encrypted_message;
+        $full_message =~ s/\n/ /g;
+        $full_message =~ s/\r//g;
+        $full_message =~ s/^\s+//;
+        $full_message =~ s/\s+$//;
+        printf "(2)full message [%s]\n\tlength [%s]\n", $full_message, length $full_message;
 
     } # end or row1 processing
 
@@ -239,10 +301,10 @@ use Try::Tiny;
 my $url = "https://melick.wordpress.com/"; # ----- twitter treats this as 12 bytes
 my $hashtag = "#enigma";                   # ----- 7 bytes, and only included if there is room left in the tweet.
 
-if (length $encrypted_message <= 107) {
-    tweet($encrypted_message, $url, $hashtag);
+if (length $full_message <= 107) {
+  # tweet($full_message, $url, $hashtag);
 } else {
-    printf "ERROR: message too long to include URL and hashtag [%s]\n", length $encrypted_message;
+    printf "ERROR: message too long to include URL and hashtag [%s]\n", length $full_message;
 }
 
 # ----- https://perlmaven.com/sending-tweets-from-a-perl-script
