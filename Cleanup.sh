@@ -15,3 +15,5 @@ dos2unix /home/melick/enigma/*.svn
 dos2unix /home/melick/enigma/*.yaml
 dos2unix /home/melick/enigma/*.txt
 dos2unix /home/melick/enigma/*.md
+
+chmod u+x *.sh
