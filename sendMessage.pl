@@ -267,6 +267,7 @@ do {
         printf "Spruchschlussel: [%s]\n", $Spruchschlussel if $debug;
 
         $python_command_a .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $random_Grundstellung, $Spruchschlussel;
+        printf "python_command_a [%s]\n", $python_command_a if $debug;
         $encrypted_Spruchschlussel = `$python_command_a`;
         $encrypted_Spruchschlussel =~ s/\n/ /g;
         $encrypted_Spruchschlussel =~ s/\r//g;
