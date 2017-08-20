@@ -257,6 +257,8 @@ do {
         } else {
             $random_Grundstellung = random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1) . random_string_from('ABCDEFGHIJKLMNOPQRSTUVWXYZ',1);
         }
+        # ----- trying to figure out how the post-1940 process will work with the iPhone emulator.  Might have to expose the Grundstellung to get things to work.
+        $random_Grundstellung = $Grundstellung;
         printf "random Grundstellung: [%s]\n", $random_Grundstellung if $debug;
 
         if ($num_rotors == 3) {
@@ -282,10 +284,10 @@ do {
         # ----------------------------------------------------------------------
       # fix this some day.  I'm generating 4 walzenlages, but the emulator only has three and the codebooks I'm generating only have 3.
         if ($num_rotors == 4) {
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
+            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Walzenlage4, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
         } else {
             printf "should see this.\n" if $debug;
-            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
+            $python_command .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $Message;
         }
         printf "python_command [%s]\n", $python_command if $debug;
 
@@ -300,7 +302,8 @@ do {
         $encrypted_message = substr($encrypted_message, 0, 140 - length $message_header);
         printf "encrypted_message %s characters [%s]\n", length $encrypted_message, $encrypted_message if $debug;
 
-        $python_command_b .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3, $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $encrypted_message;
+        # ----- FIXME - 3 or 4 rotors...
+        $python_command_b .= sprintf "/home/melick/enigma/python/enigma.py -r %s -R %s,%s,%s    -O %s -P %s -K %s '%s'", $Umkehrwalze, $Walzenlage1, $Walzenlage2, $Walzenlage3,               $Ringstellung, $Steckerverbindungen, $Spruchschlussel, $encrypted_message;
         $unencrypted_message = `$python_command_b`;
         $unencrypted_message =~ s/\n/ /g;
         $unencrypted_message =~ s/\r//g;
@@ -395,7 +398,7 @@ sub tweet {
 =begin GHOSTCODE
 
     During World War II, codebooks were only used each day to set up the rotors, their ring settings and the plugboard.  For each message,
-    the operator selected a random start position, let's say WZA (possibly from the Kenngruppen), and a random/arbitrary message key,
+    the operator selected a random start position, let us say WZA (possibly from the Kenngruppen), and a random/arbitrary message key,
     perhaps SXT.  He moved the rotors to the WZA start position and encoded the message key SXT.  Assume the result was UHL.  He then set
     up the message key, SXT, as the start position and encrypted the message.  Next, he transmitted the start position, WZA, the encoded
     message key, UHL, and then the ciphertext.
