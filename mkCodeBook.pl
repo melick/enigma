@@ -80,9 +80,9 @@ $a->fill('*');
 $a->rotate('h');
 print $a->get;
 printf "        %04d %s\n\n", $year, $months[$month];
-printf "-----------+---+---------------------+-----+-----+--------------------------------+----------------\n";
-printf "    Day    |UKW|     Walzenlage      |Ring |Grund| Steckerverbindungen            | Kenngruppen    \n";
-printf "-----------+---+---------------------+-----+-----+--------------------------------+----------------\n";
+printf "-----------+---+----------------+-----+-----+--------------------------------+----------------\n";
+printf "    Day    |UKW|   Walzenlage   |Ring |Grund| Steckerverbindungen            | Kenngruppen    \n";
+printf "-----------+---+----------------+-----+-----+--------------------------------+----------------\n";
 
 
 # ----------------------------------------------------------------------
@@ -153,7 +153,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # ----------------------------------------------------------------------
     # ----- set up the plugs set.  This is number of terminations.  a -> b = 2 connections.  Normal usage uses 10 connectors, or 20 connections
     # ----------------------------------------------------------------------
-    my $max_plug = 2 * int rand(10);
+    my $max_plug = 2 * int rand(11);
     printf "max_plug: [%s]\n", $max_plug if $debug;
 
     # pick plug combinations
@@ -245,7 +245,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
 
 }
 
-printf "-----------+---+---------------------+-----+-----+--------------------------------+----------------\n";
+printf "-----------+---+----------------+-----+-----+--------------------------------+----------------\n";
 
 $dbh->disconnect;
 
