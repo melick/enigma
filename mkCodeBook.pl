@@ -79,10 +79,10 @@ $a->size(1);
 $a->fill('*');
 $a->rotate('h');
 print $a->get;
-printf "        %04d %s\n\n", $year, $months[$month];
-printf "-----------+---+---------------------+-----+-----+--------------------------------+----------------\n";
-printf "    Day    |UKW|      Walzenlage     | Rng | Gnd | Steckerverbindungen            | Kenngruppen    \n";
-printf "-----------+---+---------------------+-----+-----+--------------------------------+----------------\n";
+printf "         %04d %s\n\n", $year, $months[$month];
+printf " -----------+---+---------------------+-----+-----+--------------------------------+---------------- \n";
+printf "     Day    |UKW|      Walzenlage     | Rng | Gnd | Steckerverbindungen            | Kenngruppen     \n";
+printf " -----------+---+---------------------+-----+-----+--------------------------------+---------------- \n";
 
 
 # ----------------------------------------------------------------------
@@ -238,9 +238,9 @@ for (my $day=$num_days; $day >= 1; $day--) {
     # print out settings
     # ----------------------------------------------------------------------
     if ($num_rotors == 3) {
-        printf "%04d-%02d-%02d | %s |   %4s %4s %4s    | %3s | %3s | %-30s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf " %04d-%02d-%02d | %s | %4s   %4s   %4s  | %3s | %3s | %-30s | %s \n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     } else {
-        printf "%04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %-30s | %s\n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
+        printf " %04d-%02d-%02d | %s | %4s %4s %4s %4s  | %4s | %4s | %-30s | %s \n", $year, $month, $day, $Umkehrwalze, $Walzenlage[0], $Walzenlage[1], $Walzenlage[2], $Walzenlage[3], $Ringstellung, $Grundstellung, $Steckerverbindungen, $Kenngruppen;
     }
 
 }
