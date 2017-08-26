@@ -6,23 +6,42 @@ ChangeLog.txt, LICENSE, and this README.md are self explanatory.
 mkCodeBook.pl will create a codebook.  mkCodeBook.sh is a bash script
 that drives the perl to create three monthly codebooks.  The codebook
 settings are stored in a mySql database in a table called CodeBook
-(table_CodeBook.svn).  These files produce a txt file and a pdf for
+(table_CodeBook.sql).  These files produce a txt file and a pdf for
 each of the patrols (Red Stallion, Pioneer and Viking).
 
 uploadMedia.pl will eventually upload the codebook PDFs to
-https://melick.wordpress.com
+https://melick.wordpress.com.  table_Media.sql will hold a record
+of what has been uploaded.
 
-OneRing.pl currently creates some links for encypting the messages.
-Eventually it will create the message from a prepopulated database
-table called Messages (table_Messages.svn [TBD]).
-
-TwitterBot.pl will post a message to a twitter account.
+table_Messages.sql holds a record of messages sent.
 
 Details are stored in a config.yaml file (not in GitHub for obvious
 reasons).
 
-I use a private build.bat and WinSCP script to help automate the
-version control process.
+I use a private build.bat and WinSCP script to help automate deployment
+to my Rasbian server(s).
+
+
+------------------------------------------------------------------------
+
+    During World War II, codebooks were only used each day to set up the rotors, their ring settings and the plugboard.  For each message,
+    the operator selected a random start position, let's say WZA (possibly from the Kenngruppen), and a random/arbitrary message key,
+    perhaps SXT.  He moved the rotors to the WZA start position and encoded the message key SXT.  Assume the result was UHL.  He then set
+    up the message key, SXT, as the start position and encrypted the message.  Next, he transmitted the start position, WZA, the encoded
+    message key, UHL, and then the ciphertext.
+
+    The receiver set up the start position according to the first trigram, WZA, and decoded the second trigram, UHL, to obtain the SXT
+    message setting.  Next, he used this SXT message setting as the start position to decrypt the message.  This way, each ground
+    setting was different and the new procedure avoided the security flaw of double encoded message settings.
+
+    This procedure was used by Wehrmacht and Luftwaffe only.  The Kriegsmarine procedures on sending messages with the Enigma were far
+    more complex and elaborate.  Prior to encryption the message was encoded using the Kurzsignalheft code book.  The Kurzsignalheft
+    contained tables to convert sentences into four-letter groups.  A great many choices were included, for example, logistic matters
+    such as refuelling and rendezvous with supply ships, positions and grid lists, harbour names, countries, weapons, weather conditions,
+    enemy positions and ships, date and time tables.  Another codebook contained the Kenngruppen and Spruchschlüssel: the key identification
+    and message key.
+
+------------------------------------------------------------------------
 
 
 BACKGROUND

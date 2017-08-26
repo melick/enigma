@@ -6,12 +6,20 @@ $WCDATE=%Y-%b-%d %I:%M:%S%p$
 
 Change Log:
 -----------------------------------------------------------------------
+2017 August 26 - LOMelick
+               - Removing TwitterBot.pl, encodeMessage.pl.
+                 I have incorporated them in sendMessage.pl
+               - Removing Cleanup.sh.  Don't need to alter line endings
+                 and make things executable in Raspbian the way I'm
+                 setting up Git.
+               - Removing OneRing.pl.  Was old way of doing it before
+                 major re-write.
+               - updated README.md and this file
+
 2017 July 13 - LOMelick
              - added the ability to pass the network to mkCodeBook.pl
              - updated mkCodeBook.sh to generate Red Stallion, Pioneer
                and Viking patrol codebooks.
-             - added ability to upload codebooks to my Wordpress blog's
-               media page vi https://metacpan.org/release/WP-API
 
 2017 July 07 - LOMelick
              - set up on Destiny, cleaned up some of the build structure
@@ -25,3 +33,9 @@ Change Log:
 
 2015 March 23 - LOMelick
               - Created SVN Repository
+
+
+To Do
+-----------------------------------------------------------------------
+- add ability to upload codebooks to my Wordpress blog's
+  media page vi https://metacpan.org/release/WP-API
