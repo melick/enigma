@@ -1,7 +1,6 @@
 Latest Version:
 -----------------------------------------------------------------------
-$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$ 
-$WCDATE=%Y-%b-%d %I:%M:%S%p$
+$Id$
 
 
 Change Log:

@@ -5,8 +5,7 @@
 #       Last Update - 2017 June 16 - LOMelick - moved to GitHub and updated for Raspberry Pi Zero W
 #                   - 2015 March 23 - LOMelick - Created
 #
-my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
-my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
+my $Revision = '$Id$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 #
 # usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl -p 'Red Stallion' -s '2014-09-01' [-v] [-d]
 # usage(1): /usr/bin/perl /home/melick/enigma/mkCodeBook.pl --patrol 'Red Stallion' --start '2014-09-01' [--verbose] [--debug]
@@ -167,7 +166,7 @@ for (my $day=$num_days; $day >= 1; $day--) {
     my @shuffled_plug_indexes = shuffle(0..$#Plugs);
 
     # Get just N of them.
-    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug ];  
+    my @pick_plug_indexes = @shuffled_plug_indexes[ 0 .. $max_plug ];
 
     # Pick cards from @deck
     my @negnudnibrevrekcetS = @Plugs[ @pick_plug_indexes ];
@@ -255,16 +254,16 @@ $dbh->disconnect;
 # upload to wordpress blog
 # ----------------------------------------------------------------------
 use File::Slurp qw( read_file );
- 
+
 my $content = read_file('path/to/file.jpg');
- 
+
 my $media = $api->media()->create(
     name      => 'foo.jpg',
     type      => 'image/jpeg',
     bits      => $content,
     overwrite => 1,
 );
- 
+
 print $media->date_created_gmt()->date();
 =end GHOSTCODE
 =cut

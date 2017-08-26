@@ -4,8 +4,7 @@
 #       Lyle Melick - Red Stallion Patrol
 #       Last Update - 2017 July 21 - LOMelick - Created
 #
-my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
-my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
+my $Revision = '$Id$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 #
 # usage: /usr/bin/perl /home/melick/enigma/sendMessage.pl -p RS -m 'Hello World' -v -d
 # usage: /usr/bin/perl /home/melick/enigma/sendMessage.pl --patrol 'RS' --message 'Hello World' --verbose --debug

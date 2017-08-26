@@ -5,8 +5,7 @@
 # Create date: 2015 March 23
 # Description: creates the codebook - run from crontab
 #
-# $WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$
-# $WCDATE=%Y-%b-%d %I:%M:%S%p$
+# $Id$
 # =====================================================================
 
 # ----- pull the date for file name fun

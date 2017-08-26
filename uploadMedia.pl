@@ -4,8 +4,7 @@
 #       Lyle Melick - Red Stallion Patrol
 #       Last Update - 2017 July 13 - LOMelick - Created
 #
-my $Revision = '$WCMIXED?[$WCRANGE$]:v$WCREV$$ $WCMODS?with local mods:$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
-my $BuildDate = '$WCDATE=%Y-%b-%d %I:%M:%S%p$';$BuildDate =~ s/\A\s+//;$BuildDate =~ s/\s+\z//;
+my $Revision = '$Id$';$Revision =~ s/\A\s+//;$Revision =~ s/\s+\z//;
 #
 # usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl -f '/home/melick/enigma/CodeBook-RS-2017-07.pdf' [-v] [-d]
 # usage(1): /usr/bin/perl /home/melick/enigma/uploadMedia.pl --file '/home/melick/enigma/CodeBook-RS-2017-07.pdf' [--verbose] [--debug]
@@ -58,16 +57,16 @@ my $api = WP::API->new(
 # upload to wordpress blog
 # ----------------------------------------------------------------------
 use File::Slurp qw( read_file );
- 
+
 my $content = read_file($File);
- 
+
 my $media = $api->media()->create(
     name      => 'test.pdf',
     type      => 'application/pdf',
     bits      => $content,
     overwrite => 1,
 );
- 
+
 print $media->date_created_gmt()->date();
 =end GHOSTCODE
 =cut
