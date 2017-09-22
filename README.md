@@ -13,13 +13,19 @@ uploadMedia.pl will eventually upload the codebook PDFs to
 https://melick.wordpress.com.  table_Media.sql will hold a record
 of what has been uploaded.
 
-table_Messages.sql holds a record of messages sent.
+table_Messages.sql will eventually hold a record of messages sent.
 
 Details are stored in a config.yaml file (not in GitHub for obvious
 reasons).
 
-I use a private build.bat and WinSCP script to help automate deployment
-to my Rasbian server(s).
+EnigmaWeather.py was recently added to pull current weather for
+my location with the thought that that could be automated as a
+6:00am message everyday.
+
+Note that I'm using the enigma simulator from:
+    http://www.crufty.net/sjg/blog/EnigmaEmulator.htm
+to actually encode the messages.  It sits in a subdirectory
+in the enigma directory on my raspberry pi machines
 
 
 ------------------------------------------------------------------------
