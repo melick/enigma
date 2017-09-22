@@ -5,6 +5,8 @@ $Id$
 
 Change Log:
 -----------------------------------------------------------------------
+2017 August 26a - setting up develop branch
+
 2017 August 26 - LOMelick
                - Removing TwitterBot.pl, encodeMessage.pl.
                  I have incorporated them in sendMessage.pl
