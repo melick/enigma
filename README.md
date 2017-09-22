@@ -87,7 +87,6 @@ in the enigma directory on my raspberry pi machines
 
 ------------------------------------------------------------------------
 
-
     BACKGROUND
     from http://users.telenet.be/d.rijmenants/en/enigmatech.htm
 
