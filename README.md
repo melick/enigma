@@ -27,47 +27,44 @@ Note that I'm using the enigma simulator from:
 to actually encode the messages.  It sits in a subdirectory
 in the enigma directory on my raspberry pi machines
 
-
 ------------------------------------------------------------------------
 
+    Sample message and decoding process
 
-Sample message and decoding process
+    PIO DE CTU 1236 = 13 = IYW NPZ = BRIGP BCKE KVAH EPS
+    --- -- --- ----   --   --- ---   ----- -------------
+     |   |  |    |     |    |   |      |          |
+     |   |  |    |     |    |   |      |          +----- encrypted message
+     |   |  |    |     |    |   |      |                 
+     |   |  |    |     |    |   |      +---------------- One of the Kenngruppen 
+     |   |  |    |     |    |   |                        padded with two random
+     |   |  |    |     |    |   |                        characters.  (not decoded
+     |   |  |    |     |    |   |                        as part of the message)
+     |   |  |    |     |    |   +----------------------- encrypted message key
+     |   |  |    |     |    |                            
+     |   |  |    |     |    +--------------------------- daily key, from CodeBook Gnd column
+     |   |  |    |     |                                 
+     |   |  |    |     +-------------------------------- number of characters in the encrypted message
+     |   |  |    |                                       
+     |   |  |    +-------------------------------------- time of message (24 hour clock?)
+     |   |  |                                            
+     |   |  +------------------------------------------- destination organization if DE, sending organization if EN
+     |   |                                               
+     |   +---------------------------------------------- EN/DE, to or from
+     |                                                   
+     +-------------------------------------------------- sending organization if DE, destination organization if EN
 
-PIO DE CTU 1236 = 13 = IYW NPZ = BRIGP BCKE KVAH EPS
---- -- --- ----   --   --- ---   ----- -------------
- |   |  |    |     |    |   |      |          |
- |   |  |    |     |    |   |      |          +----- encrypted message
- |   |  |    |     |    |   |      |                 
- |   |  |    |     |    |   |      +---------------- One of the Kenngruppen 
- |   |  |    |     |    |   |                        padded with two random
- |   |  |    |     |    |   |                        characters.  (not decoded
- |   |  |    |     |    |   |                        as part of the message)
- |   |  |    |     |    |   +----------------------- encrypted message key
- |   |  |    |     |    |                            
- |   |  |    |     |    +--------------------------- daily key, from CodeBook Gnd column
- |   |  |    |     |                                 
- |   |  |    |     +-------------------------------- number of characters in the encrypted message
- |   |  |    |                                       
- |   |  |    +-------------------------------------- time of message (24 hour clock?)
- |   |  |                                            
- |   |  +------------------------------------------- destination organization if DE, sending organization if EN
- |   |                                               
- |   +---------------------------------------------- EN/DE, to or from
- |                                                   
- +-------------------------------------------------- sending organization if DE, destination organization if EN
+    This message was sent from CTU to the Pioneer patrol at 12:36PM.
+    It was 13 characters long.  Daily key was IYW, encrypted message
+    key was NPZ.  This message was sent on September 22, 2017.
 
-This message was sent from CTU to the Pioneer patrol at 12:36PM.
-It was 13 characters long.  Daily key was IYW, encrypted message
-key was NPZ.  This message was sent on September 22, 2017.
+    Set up enigma according to CodeBook, xxcrypt NPZ to get message
+    key of ZGH.  Set Grundstellung to ZGH and decrypt the message.
+    You should get "HELL OXWO RLD"
 
-Set up enigma according to CodeBook, xxcrypt NPZ to get message
-key of ZGH.  Set Grundstellung to ZGH and decrypt the message.
-You should get "HELL OXWO RLD"
-
-As a check, you'll find one of the Kenngruppen words in the
-first group of 5 characters after the last "=" sign.  In this
-case IGP.
-
+    As a check, you'll find one of the Kenngruppen words in the
+    first group of 5 characters after the last "=" sign.  In this
+    case IGP.
 
 ------------------------------------------------------------------------
 
