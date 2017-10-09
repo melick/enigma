@@ -44,8 +44,8 @@ if online:
     https://pyowm.readthedocs.io/en/latest/pyowm.webapi25.html#
     '''
     time         = w.get_reference_time(timeformat='iso')             # ...or in ISO8601 => '2013-08-30 14:16:46+00'
-    sunset       = w.get_sunset_time()                                # (int or None) – GMT UNIX time of sunset or None on polar days
-    sunrise      = w.get_sunrise_time()                               # (int or None) – GMT UNIX time of sunrise or None on polar nights
+    sunset       = w.get_sunset_time()                                # (int or None) GMT UNIX time of sunset or None on polar days
+    sunrise      = w.get_sunrise_time()                               # (int or None) GMT UNIX time of sunrise or None on polar nights
     clouds       = w.get_clouds()                                     # Get cloud coverage percentage
     rain         = w.get_rain().get('3h', '')                         # Get rain volume only offers 3h I think
     snow         = w.get_snow().get('3h', '')                         # Get snow volume only offers 3h I think
@@ -57,14 +57,14 @@ if online:
     #              w.get_temperature(unit='celsius')                  # ... or in Celsius degs
     temperature  = w.get_temperature('fahrenheit')['temp']            # ... or in Fahrenheit degs
     #                                                                 # temp_min, temp, temp_max
-    status       = w.get_status                                       # (Unicode) – short weather status
+    status       = w.get_status                                       # (Unicode) short weather status
     det_status   = w.get_detailed_status()                            # Get detailed weather status => 'Broken clouds'
-    code         = w.get_weather_code                                 # (int) – OWM weather condition code    - https://openweathermap.org/weather-conditions
-    icon         = w.get_weather_icon_name                            # (Unicode) – weather-related icon name - https://openweathermap.org/weather-conditions
-    viz          = w.get_visibility_distance                          # (float) – visibility distance
-    dew          = w.get_dewpoint                                     # (float) – dewpoint
-    humidex      = w.get_humidex                                      # (float) – Canadian humidex
-    heat         = w.get_heat_index                                   # (float) – heat index
+    code         = w.get_weather_code                                 # (int) OWM weather condition code    - https://openweathermap.org/weather-conditions
+    icon         = w.get_weather_icon_name                            # (Unicode) weather-related icon name - https://openweathermap.org/weather-conditions
+    viz          = w.get_visibility_distance                          # (float) visibility distance
+    dew          = w.get_dewpoint                                     # (float) dewpoint
+    humidex      = w.get_humidex                                      # (float) Canadian humidex
+    heat         = w.get_heat_index                                   # (float) heat index
 
     '''Pull current system time'''
     ts           = strftime("%Y-%m-%d %H:%M:%S", gmtime())            # Time script was run
